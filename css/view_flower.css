@@ -1,0 +1,14 @@
+#message-history {
+	height: 200px;
+	border: solid 1px black;
+}
+
+#message-input {
+	border: solid 1px black;
+	border-top: none;
+}
+
+#message-input-box {
+	border: none;
+	width: 80%;
+}

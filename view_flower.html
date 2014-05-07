@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9">
+
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/view_flower.css" rel="stylesheet">
+
+  <script src="http://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+  <script src="js/jquery-1.11.0.min.js"></script>
+
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <div id="responses">
+  	      <h3>RESPONSES</h3>
+  	      <div class="row" id="your-response">
+  	      	<script type="text/javascript">
+  	      	  // record audio
+  	      	  function record_audio_and_video(){
+    			recordRTC_Video.startRecording();
+    			recordRTC_Audio.startRecording();
+  			  } 
+  			  $(document).ready(function() {
+    			var ready = 0; // use a counter to make sure audoi and video are all ready
+
+    			// record audio
+    			navigator.getUserMedia({audio: true}, function(mediaStream) {
+      			  window.recordRTC_Audio = RecordRTC(mediaStream);
+      			  ready += 1;
+      			  if(ready == 2){
+        			record_audio_and_video();
+      			  }
+    			},function(failure){
+      			  console.log(failure);
+    			});
+
+    			// record video
+    			navigator.getUserMedia({video: true}, function(mediaStream) {
+		      	  window.recordRTC_Video = RecordRTC(mediaStream,{type:"video"});
+		      	  ready += 1;
+		      	  if(ready == 2){
+		        	record_audio_and_video();
+      				var webcam_stream = document.getElementById('your-response');
+      				var video = document.createElement('video');
+      				webcam_stream.innerHTML = "";
+      				// adds these properties to the video
+      				video = mergeProps(video, {
+          			  controls: false,
+          			  src: URL.createObjectURL(mediaStream)
+      				});
+      				video.setAttribute('width', '90%');
+      				video.play();
+      				webcam_stream.appendChild(video);
+				  }
+    			},function(failure){
+      			  console.log(failure);
+    			});
+  			  });
+    		</script>
+  	      </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div id="content">
+  	  	  <h3>CONTENT</h3>
+  	  	  <iframe src="http://www.buzzfeed.com/spenceralthouse/unforgettable-friends-moments-that-will-always-be-there-f" style="width:100%; height:500px;"></iframe>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div id="messages">
+  	      <h3>MESSAGES</h3>
+  	      <div class="row" id="message-history">
+  	      </div>
+  	      <div class="row" id="message-input">
+  	      	<form class="form-inline" role="form">
+  	      	  <input type="text" class="form-control" placeholder="Say something..." id="message-input-box"></input>
+  	      	  <button type="button" class="btn btn-success">Post</button>
+  	        </form>
+  	      </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
