@@ -22,30 +22,26 @@ FriendAdder.prototype.showMessage = function(msg, success) {
 
 FriendAdder.prototype.addFriendToDB = function(id, name, fb) {
 	fb.child('gardens/' + this.gardenName + '/users/'+ id).set(true);
+	fb.child('users/' + id + '/gardens/' + gardenName).set(true);
 	this.showMessage(name + " was added!", true); 
 }
 
-FriendAdder.prototype.friendExists = function(name, fb) {
-	friendAdder = this;
-  	fb.child('users').once('value', function(usrs){
-		var users = usrs.val();
-		for(var usr in users) {
-			console.log(users[usr].username);
-	  		if(users[usr].username == name) {
-	  			friendAdder.addFriendToDB(usr, name, fb);
-	  			return;
-	  	    }
-  		}
-  		friendAdder.showMessage(name + " does not exist", false);
-  	});
-}
-
-FriendAdder.prototype.searchFriend = function(gardenName, fb) {
+FriendAdder.prototype.searchFriend = function(fb) {
 	var friendName = this.friendAdder.value;
 	if (friendName == "") {
 		this.showMessage("Please enter a friend's name", false);
 	} else {
-		this.friendExists(friendName, fb);
+		var friendAdder = this;
+	  	fb.child('users').once('value', function(usrs){
+			var users = usrs.val();
+			for(var usr in users) {
+		  		if(users[usr].username == friendName) {
+		  			friendAdder.addFriendToDB(usr, friendName, fb);
+		  			return;
+		  	    }
+	  		}
+	  		friendAdder.showMessage(name + " does not exist", false);
+  		});
 	}
 }
 

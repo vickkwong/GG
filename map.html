@@ -16,7 +16,7 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style>
-      .gardens {
+      #garden-map {
         text-align: center;
       }
       .garden-container {
@@ -24,9 +24,6 @@
         display: inline-block;
         margin-right: 2%;
         margin-left: 2%;
-      }
-      .garden-container:hover {
-        cursor: pointer;
       }
       .garden-icon {
         margin-right: auto;
@@ -66,38 +63,22 @@
     <!-- End of Navbar -->
 
     <!-- Gardens -->
-    <div class="gardens">
-      <div class="garden-container">
-        <img src="img/garden.png" alt="garden" class="garden-icon" />
-        <p class="garden-title text-center">Garden Name</p>
-        <p class="garden-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque at suscipit odio. Vestibulum at pulvinar justo.</p>
-      </div>
-      <div class="garden-container">
-        <img src="img/garden.png" alt="garden" class="garden-icon" />
-        <p class="garden-title text-center">Garden Name</p>
-        <p class="garden-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque at suscipit odio. Vestibulum at pulvinar justo.</p>
-      </div>
-      <div class="garden-container">
-        <img src="img/garden.png" alt="garden" class="garden-icon" />
-        <p class="garden-title text-center">Garden Name</p>
-        <p class="garden-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque at suscipit odio. Vestibulum at pulvinar justo.</p>
-      </div>
-      <div class="garden-container">
-        <img src="img/garden.png" alt="garden" class="garden-icon" />
-        <p class="garden-title text-center">Garden Name</p>
-        <p class="garden-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque at suscipit odio. Vestibulum at pulvinar justo.</p>
-      </div>
-      <div class="garden-container">
-        <img src="img/garden.png" alt="garden" class="garden-icon" />
-        <p class="garden-title text-center">Garden Name</p>
-        <p class="garden-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque at suscipit odio. Vestibulum at pulvinar justo.</p>
-      </div>
-    </div>
+    <div id="garden-map"></div>
     <!-- End of Gardens -->
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+    <script src='https://cdn.firebase.com/js/client/1.0.11/firebase.js'></script>
+    <script src="js/garden-map.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var gardenMap = new GardenMap("garden-map");
+        var fb = new Firebase('https://ganstagarden.firebaseIO.com/');
+        // TODO - GET USER ID
+        gardenMap.populate(2, fb);
+      });
+    </script>
   </body>
 </html>
