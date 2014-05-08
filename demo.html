@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo for Victoria</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+      #magic-button {
+        width: 250px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+      #content-container {
+        width: 100%;
+        text-align: center;
+        height: 500px;
+        overflow: scroll;
+        margin-top: 2%;
+        margin-bottom: 2%;
+      }
+      #content-iframe {
+        width: 100%;
+        height:500px;
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+      NOTES FOR VICTORIA:
+      -set the iframe height to be equal to the iframe container's height (something small like 500px)
+      -have a container for the iframe
+      -include this library i wrote: js/magic-iframe.js
+      -you don't need to read the comments in it, just basically follow the js i wrote on the bottom
+      -make sure you don't give your container and iframe the same id names i gave mine since we're
+      both writing to the same html file
+    -->
+    <button id="magic-button" type="button" class="btn btn-default">Load Buzzfeed</button>
+    <div id="content-container">
+      <!-- dummy.html needs to be dynamically generated-->
+      <iframe id="content-iframe" src="">
+        <p>Your browser does not support iframes.</p>
+      </iframe>
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/magic-iframe.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function(){
+        var inputIframe = new MagicIframe("content-iframe", "content-container");
+        document.getElementById("magic-button").addEventListener("click", function(e){
+          var url = "http://www.buzzfeed.com/arianelange/neighbors-penises-seth-rogen-zac-efron";
+          var pixels = 2552;
+          inputIframe.loadSrc(url, pixels);
+        });
+      });
+    </script>
+  </body>
+</html>
