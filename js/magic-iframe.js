@@ -27,7 +27,7 @@ function MagicIframe(id, containerId, urlInputId, descriptionId) {
  * where the user is viewing an existing flower, pass in the url of the content
  * and the # of pixels that should be scrolled down.
  * 
- * @param {string} [url] The url of the content that should be loaded.
+ * @param {string} [url] The url of the content that should be loaded
  * @param {integer} [pixels] The number of pixels that should be scrolled down
  */
 MagicIframe.prototype.loadSrc = function(url, pixels) {
@@ -37,15 +37,18 @@ MagicIframe.prototype.loadSrc = function(url, pixels) {
 		this.container.style.display = 'block';
 		this.descriptionForm.style.display = 'block';
 	}
-	var dummyURL = "file:///Users/victoriakwong/Documents/CS247/GG/dummy.html?url=" + url + "&pixels=" + pixels;
+	var dummyURL = "file:///Users/scottkhamphoune/Desktop/CS%20247/GG/dummy.html?url=" + url + "&pixels=" + pixels;
 	this.iframe.src = dummyURL;
 }
 
 /**
  * Saves iframe data (url, pixels, and description) to the DB.  Refreshes the form.
  * This should only be called in the case where the user is planting a new flower.
+ *
+ * @param {string} gardenName The name of the garden the flower should be posted to
+ * @param {Firebase} [fb] The Firebase db
  */
-MagicIframe.prototype.save = function() {
+MagicIframe.prototype.save = function(gardenName, fb) {
 	var url = this.urlInput.value;
 	var pixels = this.container.scrollTop;
 	var description = this.descriptionForm.value;
@@ -54,6 +57,9 @@ MagicIframe.prototype.save = function() {
 	console.log("url: " + url);
 	console.log("pixels: " + pixels);
 	console.log("description: " + description);
+
+	// POST to database
+	fb.child('gardens/' + gardenName + '/flowers/').push({URL:url, pixels:pixels, description:description}); 
 
 	// Refresh everything
 	this.urlInput.value = "";

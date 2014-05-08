@@ -38,30 +38,10 @@
   </head>
   <body>
     <div class="page-header">
-      <h1>Garden Name</h1>
+      <h1 id="garden-header">Garden Name</h1>
     </div>
 
-    <!-- Navbar-->
-    <nav class="navbar navbar-default" role="navigation">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-3">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Back to Maps</a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">
-          <button type="button" class="btn btn-primary navbar-btn">Add a Friend</button>
-          <button type="button" class="btn btn-success navbar-btn" data-toggle="modal" data-target="#plantSeedModal">Plant a Seed</button>
-        </div>
-      </div>
-    </nav>
-    <!-- End of Navbar -->
-
-    <!-- Modal -->
+    <!-- Plant a Flower Modal -->
     <div class="modal fade" id="plantSeedModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -95,61 +75,105 @@
           <!-- End of Modal Body -->
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <button id="plant-seed-btn" type="button" class="btn btn-success">Plant</button>
+            <button id="plant-seed-btn" type="button" class="btn btn-success" data-dismiss="modal">Plant</button>
           </div>
         </div>
       </div>
     </div>
-    <!-- End of Modal -->
+    <!-- End of Plant a Flower Modal -->
 
-    <!-- Flower Garden -->
-    <div class="flower-garden">
-      <div class="flower-container">
-        <a href='#'>
-          <img src="img/flower1.png" alt="flower" class="flower" />
-        </a>
-      </div>
-      <div class="flower-container">
-        <a href='#'>
-          <img src="img/flower2.png" alt="flower" class="flower" />
-        </a>
-      </div>
-      <div class="flower-container">
-        <a href='#'>
-          <img src="img/flower1.png" alt="flower" class="flower" />
-        </a>
-      </div>
-      <div class="flower-container">
-        <a href='#'>
-          <img src="img/flower1.png" alt="flower" class="flower" />
-        </a>
-      </div>
-      <div class="flower-container">
-        <a href='#'>
-          <img src="img/flower2.png" alt="flower" class="flower" />
-        </a>
-      </div>
-      <div class="flower-container">
-        <a href='#'>
-          <img src="img/flower1.png" alt="flower" class="flower" />
-        </a>
+    <!-- Add a Friend Modal -->
+    <div class="modal fade" id="addFriendModal" tabindex="-1" role="dialog" aria-labelledby="addFriendModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="addFriendModalLabel">Add a Friend</h4>
+          </div>
+          <div class="modal-body">
+            <form role="form">
+              <div class="form-group">
+                <label for="friendNameInput">Add a Friend</label>
+                <p class="bg-success" id="friendNameSuccess"></p>
+                <p class="bg-danger" id="friendNameError"></p>
+                <input type="text" class="form-control" id="friendNameInput" placeholder="Enter username">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="addFriendBtn">Add Friend</button>
+          </div>
+        </div>
       </div>
     </div>
-    <!-- End of Flower Garden -->
+    <!-- End of Add a Friend Modal-->
+
+    <!-- Navbar-->
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-3">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Back to Maps</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">
+          <button type="button" class="btn btn-primary navbar-btn" data-toggle="modal" data-target="#addFriendModal">Add a Friend</button>
+          <button type="button" class="btn btn-success navbar-btn" data-toggle="modal" data-target="#plantSeedModal">Plant a Seed</button>
+        </div>
+      </div>
+    </nav>
+    <!-- End of Navbar -->
+
+
+    <div id="flower-garden"></div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+    <script src='https://cdn.firebase.com/js/client/1.0.11/firebase.js'></script>
     <script src="js/magic-iframe.js"></script>
+    <script src="js/garden.js"></script>
+    <script src="js/friend-adder.js"></script>
     <script>
-      document.addEventListener('DOMContentLoaded', function(){
+      function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i=0;i<vars.length;i++) {
+          var pair = vars[i].split("=");
+          if(pair[0] == variable){return pair[1];}
+        }
+        return(false);
+      }
+      var gardenName = getQueryVariable("gardenname");
+      var fb = new Firebase('https://ganstagarden.firebaseIO.com/');
+
+      document.addEventListener('DOMContentLoaded', function() {
         var inputIframe = new MagicIframe("content-iframe", "content-container", "URLInput", "content-description");
+        var garden = new Garden("flower-garden", gardenName);
+        garden.populate(fb);
+        document.getElementById("garden-header").innerHTML = gardenName;
+        var friendAdder = new FriendAdder("friendNameInput", "friendNameError", "friendNameSuccess", gardenName);
+
+        // Save flower button
         document.getElementById("plant-seed-btn").addEventListener("click", function(e){
-          inputIframe.save();
+          inputIframe.save(gardenName, fb);
+          garden.populate(fb);
         });
+
+        // Search for content button
         document.getElementById("search-btn").addEventListener("click", function(e){
           inputIframe.loadSrc();
+        });
+
+        // Add friend button
+        document.getElementById("addFriendBtn").addEventListener("click", function(e){
+          friendAdder.searchFriend(gardenName, fb);
         });
       });
     </script>
