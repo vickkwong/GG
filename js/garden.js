@@ -19,7 +19,7 @@ Garden.prototype.populate = function(fb, gardenId, userId) {
 	  	// userId
 	  	var flowerLink = document.createElement('a');
 	  	flowerLink.href = "view_flower.html?gardenId=" + gardenId + "&flowerId=" + flowerId + "&userId=" + userId;
-	  	
+	  	// flowerLink.setAttribute("data-toggle", "modal");
 
 	  	// Img
 	  	var flowerImg = document.createElement('img');

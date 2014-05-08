@@ -57,20 +57,7 @@ function stop_record_audio_and_video() {
           fb_instance_stream.push({user:cur_user_id, video: videoDataURL, audio: audioDataURL});
         });
       });
-
-    // datauri_to_blob(videoURL,function(blob){
-    //   blob_to_base64(recordRTC_Video.getBlob(),function(base64){
-    //     console.log(blob);
-    //     // fb_instance_stream.push({user:cur_user_id, video: base64});
-    //   });
-    // });
     });
-    // datauri_to_blob(audioURL,function(blob){
-    //   blob_to_base64(blob,function(base64){
-    //     console.log(blob);
-    //     fb_instance_stream.push({user:cur_user_id, audio: base64});
-    //   });
-    // });
   });
 
 }
