@@ -1,23 +1,46 @@
 // record audio
 function record_audio_and_video(){
   console.log("STARTING TO RECORD");
-  recordRTC_Video.startRecording();
-  recordRTC_Audio.startRecording();
+  setTimeout(function(){
+    recordRTC_Video.startRecording();
+    recordRTC_Audio.startRecording();
+  }, 1000);
 } 
 
 function stop_record_audio_and_video() {
   
 
   fb_instance = new Firebase("https://ganstagarden.firebaseio.com"); 
-  var fb_garden_id = "HELLO";
+                    function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i=0;i<vars.length;i++) {
+          var pair = vars[i].split("=");
+          if(pair[0] == variable){return pair[1];}
+        }
+        return(false);
+      }
+  var fb_garden_id = getQueryVariable("gardenId");
   var fb_garden = fb_instance.child('gardens').child(fb_garden_id);
-  var flower_id = "-JMOxXcqEqVvFX8O0BEJ"
+  var flower_id = getQueryVariable("flowerId");
   var fb_instance_stream = fb_garden.child('flowers/').child(flower_id).child('streams');
-  var cur_user_id = 1;
+  var cur_user_id = getQueryVariable("userId");
   // fb_instance_stream.push({user:cur_user_id, video:cur_video_blob, audio: cur_audio_blob});
 
 
- var blob_to_base64 = function(blob, callback) {
+  function datauri_to_blob(dataURI,callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', dataURI, true);
+    xhr.responseType = 'blob';
+    xhr.onload = function(e) {
+      if (this.status == 200) {
+        callback(this.response);
+      }
+    };
+    xhr.send();
+  }
+
+  var blob_to_base64 = function(blob, callback) {
     var reader = new FileReader();
     reader.onload = function() {
       var dataUrl = reader.result;
@@ -28,26 +51,26 @@ function stop_record_audio_and_video() {
   };
 
   recordRTC_Audio.stopRecording(function(audioURL) {
-        //$("#audio_link").append("<a href='"+audioURL+"'' target='_blank'>"+audioURL+"</a>")
-    // $("#audio_link").append("<audio id='audio' src='"+audioURL+"'></audio>")
-    // blob_to_base64(recordRTC_Audio.getBlob(),function(b64_data){
-    //   var cur_audio_blob = b64_data;
-    //   fb_instance_stream.push({user:cur_user_id, audio: cur_audio_blob});
-    // });
-    fb_instance_stream.push({user:cur_user_id, audio: recordRTC_Audio.getBlob()});
-  });
-  recordRTC_Video.stopRecording(function(videoURL) {
-    // $("#video_link").append("<video id='video' src='"+videoURL+"'></video>")
-    // blob_to_base64(recordRTC_Video.getBlob(),function(b64_data){
-    //   var cur_video_blob = b64_data;
-    //   fb_instance_stream.push({user:cur_user_id, audio: cur_video_blob});
-    // });
-    // recordRTC_Video.getDataURL(function(dataURL) {
-    //   // console.log(dataURL[base64]);
-    //   fb_instance_stream.push({user:cur_user_id, video: dataURL});
+    recordRTC_Video.stopRecording(function(videoURL) {
+      recordRTC_Audio.getDataURL(function(audioDataURL) {
+        recordRTC_Video.getDataURL(function(videoDataURL) {
+          fb_instance_stream.push({user:cur_user_id, video: videoDataURL, audio: audioDataURL});
+        });
+      });
 
+    // datauri_to_blob(videoURL,function(blob){
+    //   blob_to_base64(recordRTC_Video.getBlob(),function(base64){
+    //     console.log(blob);
+    //     // fb_instance_stream.push({user:cur_user_id, video: base64});
+    //   });
     // });
-    fb_instance_stream.push({user:cur_user_id, audio: recordRTC_Video.toURL()});
+    });
+    // datauri_to_blob(audioURL,function(blob){
+    //   blob_to_base64(blob,function(base64){
+    //     console.log(blob);
+    //     fb_instance_stream.push({user:cur_user_id, audio: base64});
+    //   });
+    // });
   });
 
 }
@@ -88,7 +111,7 @@ $(document).ready(function() {
       setTimeout(function(){
         console.log("STOP RECORDING");  
         stop_record_audio_and_video();
-      }, 5000);
+      }, 6000);
 
     }
   },function(failure){

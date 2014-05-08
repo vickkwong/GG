@@ -18,7 +18,7 @@ GardenMap.prototype.populate = function(userId, fb) {
 
   	  	// <a> tag
   	  	var link = document.createElement("a");
-  	  	link.href = "file:///Users/scottkhamphoune/Desktop/CS%20247/GG/garden.html?gardenname=" + key;
+  	  	link.href = "garden.html?gardenname=" + key;
 
   	  	// Img
   	  	var img = document.createElement("img");

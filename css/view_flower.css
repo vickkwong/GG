@@ -26,3 +26,11 @@
     width: 100%;
     height:500px;
 }
+
+.responseDiv {
+    width: 90%;
+}
+
+.responseDiv video {
+    width: 100%;
+}

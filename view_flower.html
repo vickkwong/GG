@@ -25,23 +25,19 @@
   	      </div>
   	      <div class="row" id="other-responses">
   	      	<script type="text/javascript">
-
-
-
-  	      	  var base64_to_blob = function(base64) {
-		    	var binary = atob(base64);
-		    	var len = binary.length;
-		    	var buffer = new ArrayBuffer(len);
-		    	var view = new Uint8Array(buffer);
-		    	for (var i = 0; i < len; i++) {
-		          view[i] = binary.charCodeAt(i);
-		        }
-		        var blob = new Blob([view]);
-		        return blob;
-		  	  };
+  	      	  function getQueryVariable(variable) {
+        		var query = window.location.search.substring(1);
+        		var vars = query.split("&");
+        		for (var i=0;i<vars.length;i++) {
+          		  var pair = vars[i].split("=");
+          		  if(pair[0] == variable){return pair[1];}
+        		}
+        		return(false);
+      		  }
   			  var fb_instance = new Firebase('https://ganstagarden.firebaseIO.com/');
-  			  var flower_id = "-JMOxXcqEqVvFX8O0BEJ"
-  	      	  var fb_garden_id = "HELLO";
+  			  var flower_id = getQueryVariable("flowerId");
+  	      	  var fb_garden_id = getQueryVariable("gardenId");
+  	      	  var userId = getQueryVariable("userId");
   	      	  var fb_garden = fb_instance.child('gardens').child(fb_garden_id);
               fb_garden.child('flowers/' + flower_id).once('value', function(gardenSnap) {
                 var streams = gardenSnap.val().streams;
@@ -50,25 +46,19 @@
                   var responseSect = document.createElement("div");
                   responseSect.setAttribute("class", "responseDiv");
                   var videoDiv = document.createElement("video");
-
-                  // var sourceDiv = document.createElement("source");
-                  // sourceDiv.src = streams[stream].video;
-                  // sourceDiv.type= "video/webm";
-                  // videoDiv.appendChild(sourceDiv);
-
-				  // videoDiv.src =  URL.createObjectURL(base64_to_blob(streams[stream].video));
-				  // videoDiv.src = URL.createObjectURL(streams[stream].video);
-				  // var videoblob = new Blob(streams[stream].video);
-				  // videoDiv.src = URL.createObjectURL(videoblob);
-
                   videoDiv.setAttribute("src", streams[stream].video);
+                  videoDiv.setAttribute("id", flower_id + "_video_" + userId);
+                  videoDiv.setAttribute("controls", "true");
                   var audioDiv = document.createElement("audio");
-                  // audioDiv.src =  URL.createObjectURL(base64_to_blob(streams[stream].audio));
-                  // audioDiv.setAttribute("src", streams[stream].audio);
+                  audioDiv.setAttribute("src", streams[stream].audio);
+                  audioDiv.setAttribute("id", flower_id + "_audio_" + userId)
                   responseSect.appendChild(videoDiv);
-                  // responseSect.appendChild(audioDiv);
+                  responseSect.appendChild(audioDiv);
                   document.getElementById("other-responses").appendChild(responseSect);
-                
+            	  $('#' + flower_id + "_video_" + userId).on('play', function() {
+            	  	console.log("PLAYING");
+    			    document.getElementById(flower_id + "_audio_" + userId).play(); 
+                  });
                 }
               });
   	      	</script>
@@ -79,14 +69,38 @@
         <div id="content">
   	  	  <h3>CONTENT</h3>
   	  	  <div id="iframe-container">
-  	  	  <!-- <iframe id="iframe-content" src="http://www.buzzfeed.com/spenceralthouse/unforgettable-friends-moments-that-will-always-be-there-f" style="width:100%; height:500px;"></iframe> -->
+  	  	  <iframe id="iframe-content" src="" style="width:100%; height:500px;"></iframe>
   	  	    <script>
       		  document.addEventListener('DOMContentLoaded', function(){
+
+      		   function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i=0;i<vars.length;i++) {
+          var pair = vars[i].split("=");
+          if(pair[0] == variable){return pair[1];}
+        }
+        return(false);
+      }
+
+
+var fb_instance = new Firebase('https://ganstagarden.firebaseIO.com/');
+  			  var flower_id = getQueryVariable("flowerId");
+  	      	  var fb_garden_id = getQueryVariable("gardenId");
+  	      	  var fb_garden = fb_instance.child('gardens').child(fb_garden_id);
+              fb_garden.child('flowers/' + flower_id).once('value', function(gardenSnap) {
+
+                 var pix = gardenSnap.val().pixels;
+                 var URL = gardenSnap.val().URL;
+                 var desc = gardenSnap.val().description;
+
+
+
         	    var inputIframe = new MagicIframe("iframe-content", "iframe-container");
-        	    var url = "http://www.buzzfeed.com/arianelange/neighbors-penises-seth-rogen-zac-efron";
-        	    var pixels = 2552;
-        	    inputIframe.loadSrc(url, pixels);
+        	    
+        	    inputIframe.loadSrc(URL, pix);
       		  });
+          });
     	    </script>
 		  </div>
         </div>
@@ -96,10 +110,19 @@
   	      <h3>MESSAGES</h3>
   	      <div class="row" id="message-history">
   	      	<script type="text/javascript">
+  	      	        function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i=0;i<vars.length;i++) {
+          var pair = vars[i].split("=");
+          if(pair[0] == variable){return pair[1];}
+        }
+        return(false);
+      }
   	      	console.log("IN HERE");
   	      	  var fb_instance = new Firebase('https://ganstagarden.firebaseIO.com/');
-  	      	  var flower_id = "-JMOxXcqEqVvFX8O0BEJ"
-  	      	  var fb_garden_id = "HELLO";
+  	      	  var flower_id = getQueryVariable("flowerId");
+  	      	  var fb_garden_id = getQueryVariable("gardenId");
   	      	  var fb_garden = fb_instance.child('gardens').child(fb_garden_id);
               fb_garden.child('flowers/' + flower_id).once('value', function(gardenSnap) {
                 var msgs = gardenSnap.val().msgs;
@@ -117,11 +140,20 @@
   	      	  <input type="text" class="form-control" placeholder="Say something..." id="message-input-box"></input>
   	      	  <button type="button" class="btn btn-success" id="post-message">Post</button>
   	      	  <script type="text/javascript">
+  	      	        function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i=0;i<vars.length;i++) {
+          var pair = vars[i].split("=");
+          if(pair[0] == variable){return pair[1];}
+        }
+        return(false);
+      }
   	      	  	document.getElementById("post-message").onclick = function() {
   	      	  	  var fb_instance = new Firebase("https://ganstagarden.firebaseio.com"); 
-  	      	  	  var fb_garden_id = "HELLO";
-  	      	  	  var flower_id = "-JMOxXcqEqVvFX8O0BEJ"
-  	      	  	  var cur_user_id = 1;
+  	      	  	  var fb_garden_id = getQueryVariable("gardenId");
+  	      	  	  var flower_id = getQueryVariable("flowerId");
+  	      	  	  var cur_user_id = getQueryVariable("userId");
     			  var fb_garden = fb_instance.child('gardens').child(fb_garden_id);
     			  var fb_instance_msgs = fb_garden.child('flowers/').child(flower_id).child('msgs');
     			  var message_val= document.getElementById("message-input-box").value;

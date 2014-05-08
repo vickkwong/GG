@@ -3,7 +3,7 @@ function Garden(id, name) {
 	this.name = name;
 }
 
-Garden.prototype.populate = function(fb) {
+Garden.prototype.populate = function(fb, gardenId, userId) {
 	var garden = this.garden;
 	garden.innerHTML = '';
 	fb.child('gardens/' + this.name).once('value', function(gardenSnap) {
@@ -14,13 +14,21 @@ Garden.prototype.populate = function(fb) {
 	  	flowerContainer.className = "flower-container";
 	  	flowerContainer.id = flowerId;
 
+	  	// flowerId
+	  	// gardenId
+	  	// userId
+	  	var flowerLink = document.createElement('a');
+	  	flowerLink.href = "view_flower.html?gardenId=" + gardenId + "&flowerId=" + flowerId + "&userId=" + userId;
+	  	
+
 	  	// Img
 	  	var flowerImg = document.createElement('img');
 	  	flowerImg.src = "img/flower1.png";
 	  	flowerImg.alt = "flower";
 
 	  	// Append
-	  	flowerContainer.appendChild(flowerImg);
+	  	flowerLink.appendChild(flowerImg);
+	  	flowerContainer.appendChild(flowerLink);
 		garden.appendChild(flowerContainer);
 	  }
 	});

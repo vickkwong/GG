@@ -61,7 +61,7 @@
             </form>
             <div id="content-container">
               <!-- dummy.html needs to be dynamically generated-->
-              <iframe id="content-iframe" src="file:///Users/scottkhamphoune/Desktop/Garden%20App/dummy.html">
+              <iframe id="content-iframe" src="dummy.html">
                 <p>Your browser does not support iframes.</p>
               </iframe>
             </div>
@@ -119,7 +119,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="file:///Users/scottkhamphoune/Desktop/CS%20247/GG/map.html">Back to Maps</a>
+          <a class="navbar-brand" href="map.html">Back to Maps</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">
           <button type="button" class="btn btn-primary navbar-btn" data-toggle="modal" data-target="#addFriendModal">Add a Friend</button>
@@ -165,20 +165,20 @@
           }
           // No, the user is a hacker!!!
           localStorage.clear();
-          window.location = "file:///Users/scottkhamphoune/Desktop/CS%20247/GG/login.html";
+          window.location = "login.html";
         });
 
 
         var inputIframe = new MagicIframe("content-iframe", "content-container", "URLInput", "content-description");
         var garden = new Garden("flower-garden", gardenName);
-        garden.populate(fb);
+        garden.populate(fb, gardenName, userId);
         document.getElementById("garden-header").innerHTML = gardenName;
         var friendAdder = new FriendAdder("friendNameInput", "friendNameError", "friendNameSuccess", gardenName);
 
         // Save flower button
         document.getElementById("plant-seed-btn").addEventListener("click", function(e){
           inputIframe.save(gardenName, fb);
-          garden.populate(fb);
+          garden.populate(fb, gardenName, userId);
         });
 
         // Search for content button

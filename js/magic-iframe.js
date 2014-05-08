@@ -37,7 +37,7 @@ MagicIframe.prototype.loadSrc = function(url, pixels) {
 		this.container.style.display = 'block';
 		this.descriptionForm.style.display = 'block';
 	}
-	var dummyURL = "file:///Users/scottkhamphoune/Desktop/CS%20247/GG/dummy.html?url=" + url + "&pixels=" + pixels;
+	var dummyURL = "dummy.html?url=" + url + "&pixels=" + pixels;
 	this.iframe.src = dummyURL;
 }
 
