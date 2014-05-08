@@ -37,7 +37,7 @@ MagicIframe.prototype.loadSrc = function(url, pixels) {
 		this.container.style.display = 'block';
 		this.descriptionForm.style.display = 'block';
 	}
-	var dummyURL = "file:///Users/scottkhamphoune/Desktop/Garden%20App/dummy.html?url=" + url + "&pixels=" + pixels;
+	var dummyURL = "file:///Users/victoriakwong/Documents/CS247/GG/dummy.html?url=" + url + "&pixels=" + pixels;
 	this.iframe.src = dummyURL;
 }
 

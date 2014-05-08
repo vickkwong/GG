@@ -1,11 +1,23 @@
 // record audio
 function record_audio_and_video(){
- recordRTC_Video.startRecording();
- recordRTC_Audio.startRecording();
+  console.log("STARTING TO RECORD");
+  recordRTC_Video.startRecording();
+  recordRTC_Audio.startRecording();
 } 
+
+function stop_record_audio_and_video() {
+  recordRTC_Audio.stopRecording(function(audioURL) {
+        //$("#audio_link").append("<a href='"+audioURL+"'' target='_blank'>"+audioURL+"</a>")
+    // $("#audio_link").append("<audio id='audio' src='"+audioURL+"'></audio>")
+  });
+  recordRTC_Video.stopRecording(function(videoURL) {
+    // $("#video_link").append("<video id='video' src='"+videoURL+"'></video>")
+  });
+}
 
 $(document).ready(function() {
   var ready = 0; // use a counter to make sure audoi and video are all ready
+  var startRecording = false;
 
   // record audio
   navigator.getUserMedia({audio: true}, function(mediaStream) {
@@ -35,8 +47,14 @@ $(document).ready(function() {
       video.setAttribute('width', '90%');
       video.play();
       webcam_stream.appendChild(video);
+      record_audio_and_video();
+      setTimeout(function(){
+        console.log("STOP RECORDING");  
+      },3000);
+
     }
   },function(failure){
     console.log(failure);
   });
+
 });
