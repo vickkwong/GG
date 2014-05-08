@@ -40,7 +40,34 @@
   </head>
   <body>
     <div class="page-header">
-      <h1>Username's Gardens</h1>
+      <h1 id="garden-map-title"></h1>
+    </div>
+
+
+    <!-- Create a Garden Modal -->
+    <div class="modal fade" id="newGardenModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Create a Garden</h4>
+          </div>
+          <div class="modal-body">
+          <form role="form">
+            <div class="form-group">
+              <label for="gardenNameInput">Garden Name</label>
+              <p class="bg-success" id="newGardenSuccess"></p>
+              <p class="bg-danger" id="newGardenError"></p>
+              <input type="text" class="form-control" id="gardenNameInput" placeholder="Enter your new garden's name">
+            </div>
+          </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-success" id="create-garden-btn">Create</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Navbar -->
@@ -55,8 +82,8 @@
           </button>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">
-          <button type="button" class="btn btn-success navbar-btn">Start a Garden</button>
-          <button type="button" class="btn btn-default navbar-btn">Logout</button>
+          <button type="button" class="btn btn-success navbar-btn" data-toggle="modal" data-target="#newGardenModal">Start a Garden</button>
+          <button type="button" class="btn btn-default navbar-btn" id="logout-btn">Logout</button>
         </div>
       </div>
     </nav>
@@ -74,10 +101,22 @@
     <script src="js/garden-map.js"></script>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-        var gardenMap = new GardenMap("garden-map");
         var fb = new Firebase('https://ganstagarden.firebaseIO.com/');
-        // TODO - GET USER ID
-        gardenMap.populate(2, fb);
+        document.getElementById("garden-map-title").innerHTML = localStorage.user + "'s Gardens";
+        var userId = localStorage.userId;
+
+        // Logout Button
+        document.getElementById("logout-btn").addEventListener("click", function(e){
+          localStorage.clear();
+          window.location = "file:///Users/scottkhamphoune/Desktop/CS%20247/GG/login.html";
+        });
+
+        var gardenMap = new GardenMap("garden-map", "gardenNameInput");
+        gardenMap.populate(userId, fb);
+
+        document.getElementById("create-garden-btn").addEventListener("click", function(e){
+          gardenMap.createNewGarden(userId, "newGardenSuccess", "newGardenError", fb);
+        });
       });
     </script>
   </body>

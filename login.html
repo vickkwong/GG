@@ -1,0 +1,80 @@
+<html>
+  <head>
+    <title>Ghetto Garden</title>
+    <script src='https://cdn.firebase.com/js/client/1.0.11/firebase.js'></script>
+  </head>
+  <body>
+    <p id="errors"></p>
+    Username:<input type="text" id="username">
+    Password:<input type="password" id="pwd">
+    <button onclick="create()">Register</button>
+    <button onclick="login()">Login</button>
+    <script>
+      function create()
+      {
+        var name = document.getElementById('username').value;
+        var password = document.getElementById('pwd').value;
+        var test = true;
+        var fb = new Firebase('https://ganstagarden.firebaseIO.com/');
+          fb.child('users').once('value', function(usrs)
+          {
+            var users = usrs.val();
+            for(var usr in users)
+            {
+              if(users[usr].username == name)
+              {
+                var error = document.getElementById('errors');
+                error.innerHTML = "Sorry, that name is taken";
+                test = false;
+              }
+        
+            }
+            if(test == true)
+          {
+            var error = document.getElementById('errors');
+                error.innerHTML = "";
+            fb.child('users').push({username:name, pwd:password});  
+          }
+          login();
+          });
+      }
+      
+      function login()
+      {
+        var name = document.getElementById('username').value;
+        var password = document.getElementById('pwd').value;
+        var test = false;
+        var fb = new Firebase('https://ganstagarden.firebaseIO.com/');
+          fb.child('users').once('value', function(usrs)
+          {
+            var users = usrs.val();
+            for(var usr in users)
+            {
+              if(users[usr].username == name)
+              {
+                if(users[usr].pwd == password)
+                {
+                  // success!
+                  localStorage.user = name;
+                  localStorage.userId = usr;
+                  window.location = "file:///Users/scottkhamphoune/Desktop/CS%20247/GG/map.html";
+                }
+                else 
+                {
+                  var error = document.getElementById('errors');
+                error.innerHTML = "Wrong password";
+                }
+                test = true;  
+              }
+        
+            }
+            if(test == false)
+            {
+              var error = document.getElementById('errors');
+                error.innerHTML = "Wrong username";
+            }
+          });
+      }
+    </script>
+  </body>
+</html>
