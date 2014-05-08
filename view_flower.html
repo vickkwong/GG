@@ -11,6 +11,7 @@
   <script src='https://cdn.firebase.com/js/client/1.0.11/firebase.js'></script>
   <script src="http://www.WebRTC-Experiment.com/RecordRTC.js"></script>
   <script src="js/jquery-1.11.0.min.js"></script>
+  <script src="js/util.js"></script>
   <script src="js/view_flower.js"></script>
   <script src="js/magic-iframe.js"></script>
 
@@ -25,15 +26,6 @@
   	      </div>
   	      <div class="row" id="other-responses">
   	      	<script type="text/javascript">
-  	      	  function getQueryVariable(variable) {
-        		var query = window.location.search.substring(1);
-        		var vars = query.split("&");
-        		for (var i=0;i<vars.length;i++) {
-          		  var pair = vars[i].split("=");
-          		  if(pair[0] == variable){return pair[1];}
-        		}
-        		return(false);
-      		  }
   			  var fb_instance = new Firebase('https://ganstagarden.firebaseIO.com/');
   			  var flower_id = getQueryVariable("flowerId");
   	      	  var fb_garden_id = getQueryVariable("gardenId");
@@ -72,35 +64,18 @@
   	  	  <iframe id="iframe-content" src="" style="width:100%; height:500px;"></iframe>
   	  	    <script>
       		  document.addEventListener('DOMContentLoaded', function(){
-
-      		   function getQueryVariable(variable) {
-        var query = window.location.search.substring(1);
-        var vars = query.split("&");
-        for (var i=0;i<vars.length;i++) {
-          var pair = vars[i].split("=");
-          if(pair[0] == variable){return pair[1];}
-        }
-        return(false);
-      }
-
-
-var fb_instance = new Firebase('https://ganstagarden.firebaseIO.com/');
-  			  var flower_id = getQueryVariable("flowerId");
-  	      	  var fb_garden_id = getQueryVariable("gardenId");
-  	      	  var fb_garden = fb_instance.child('gardens').child(fb_garden_id);
-              fb_garden.child('flowers/' + flower_id).once('value', function(gardenSnap) {
-
-                 var pix = gardenSnap.val().pixels;
-                 var URL = gardenSnap.val().URL;
-                 var desc = gardenSnap.val().description;
-
-
-
-        	    var inputIframe = new MagicIframe("iframe-content", "iframe-container");
-        	    
-        	    inputIframe.loadSrc(URL, pix);
-      		  });
-          });
+                var fb_instance = new Firebase('https://ganstagarden.firebaseIO.com/');
+  			    var flower_id = getQueryVariable("flowerId");
+  	      	    var fb_garden_id = getQueryVariable("gardenId");
+  	      	    var fb_garden = fb_instance.child('gardens').child(fb_garden_id);
+                fb_garden.child('flowers/' + flower_id).once('value', function(gardenSnap) {
+                  var pix = gardenSnap.val().pixels;
+                  var URL = gardenSnap.val().URL;
+                  var desc = gardenSnap.val().description;
+				  var inputIframe = new MagicIframe("iframe-content", "iframe-container");
+				  inputIframe.loadSrc(URL, pix);
+      		    });
+          	  });
     	    </script>
 		  </div>
         </div>
@@ -110,16 +85,6 @@ var fb_instance = new Firebase('https://ganstagarden.firebaseIO.com/');
   	      <h3>MESSAGES</h3>
   	      <div class="row" id="message-history">
   	      	<script type="text/javascript">
-  	      	        function getQueryVariable(variable) {
-        var query = window.location.search.substring(1);
-        var vars = query.split("&");
-        for (var i=0;i<vars.length;i++) {
-          var pair = vars[i].split("=");
-          if(pair[0] == variable){return pair[1];}
-        }
-        return(false);
-      }
-  	      	console.log("IN HERE");
   	      	  var fb_instance = new Firebase('https://ganstagarden.firebaseIO.com/');
   	      	  var flower_id = getQueryVariable("flowerId");
   	      	  var fb_garden_id = getQueryVariable("gardenId");
@@ -140,15 +105,6 @@ var fb_instance = new Firebase('https://ganstagarden.firebaseIO.com/');
   	      	  <input type="text" class="form-control" placeholder="Say something..." id="message-input-box"></input>
   	      	  <button type="button" class="btn btn-success" id="post-message">Post</button>
   	      	  <script type="text/javascript">
-  	      	        function getQueryVariable(variable) {
-        var query = window.location.search.substring(1);
-        var vars = query.split("&");
-        for (var i=0;i<vars.length;i++) {
-          var pair = vars[i].split("=");
-          if(pair[0] == variable){return pair[1];}
-        }
-        return(false);
-      }
   	      	  	document.getElementById("post-message").onclick = function() {
   	      	  	  var fb_instance = new Firebase("https://ganstagarden.firebaseio.com"); 
   	      	  	  var fb_garden_id = getQueryVariable("gardenId");
