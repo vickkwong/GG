@@ -8,6 +8,7 @@
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/view_flower.css" rel="stylesheet">
 
+  <script src='https://cdn.firebase.com/js/client/1.0.11/firebase.js'></script>
   <script src="http://www.WebRTC-Experiment.com/RecordRTC.js"></script>
   <script src="js/jquery-1.11.0.min.js"></script>
   <script src="js/view_flower.js"></script>
@@ -23,6 +24,54 @@
   	      <div class="row" id="your-response">
   	      </div>
   	      <div class="row" id="other-responses">
+  	      	<script type="text/javascript">
+
+
+
+  	      	  var base64_to_blob = function(base64) {
+		    	var binary = atob(base64);
+		    	var len = binary.length;
+		    	var buffer = new ArrayBuffer(len);
+		    	var view = new Uint8Array(buffer);
+		    	for (var i = 0; i < len; i++) {
+		          view[i] = binary.charCodeAt(i);
+		        }
+		        var blob = new Blob([view]);
+		        return blob;
+		  	  };
+  			  var fb_instance = new Firebase('https://ganstagarden.firebaseIO.com/');
+  			  var flower_id = "-JMOxXcqEqVvFX8O0BEJ"
+  	      	  var fb_garden_id = "HELLO";
+  	      	  var fb_garden = fb_instance.child('gardens').child(fb_garden_id);
+              fb_garden.child('flowers/' + flower_id).once('value', function(gardenSnap) {
+                var streams = gardenSnap.val().streams;
+                for(var stream in streams)
+                {
+                  var responseSect = document.createElement("div");
+                  responseSect.setAttribute("class", "responseDiv");
+                  var videoDiv = document.createElement("video");
+
+                  // var sourceDiv = document.createElement("source");
+                  // sourceDiv.src = streams[stream].video;
+                  // sourceDiv.type= "video/webm";
+                  // videoDiv.appendChild(sourceDiv);
+
+				  // videoDiv.src =  URL.createObjectURL(base64_to_blob(streams[stream].video));
+				  // videoDiv.src = URL.createObjectURL(streams[stream].video);
+				  // var videoblob = new Blob(streams[stream].video);
+				  // videoDiv.src = URL.createObjectURL(videoblob);
+
+                  videoDiv.setAttribute("src", streams[stream].video);
+                  var audioDiv = document.createElement("audio");
+                  // audioDiv.src =  URL.createObjectURL(base64_to_blob(streams[stream].audio));
+                  // audioDiv.setAttribute("src", streams[stream].audio);
+                  responseSect.appendChild(videoDiv);
+                  // responseSect.appendChild(audioDiv);
+                  document.getElementById("other-responses").appendChild(responseSect);
+                
+                }
+              });
+  	      	</script>
   	      </div>
         </div>
       </div>
@@ -30,31 +79,62 @@
         <div id="content">
   	  	  <h3>CONTENT</h3>
   	  	  <div id="iframe-container">
-  	  	  <iframe id="iframe-content" src="http://www.buzzfeed.com/spenceralthouse/unforgettable-friends-moments-that-will-always-be-there-f" style="width:100%; height:500px;"></iframe>
-  	  	  <script>
-      document.addEventListener('DOMContentLoaded', function(){
-        var inputIframe = new MagicIframe("iframe-content", "iframe-container");
-        var url = "http://www.buzzfeed.com/arianelange/neighbors-penises-seth-rogen-zac-efron";
-        var pixels = 2552;
-        inputIframe.loadSrc(url, pixels);
-      });
-    </script>
-
-
-
-  	  	  </div>
+  	  	  <!-- <iframe id="iframe-content" src="http://www.buzzfeed.com/spenceralthouse/unforgettable-friends-moments-that-will-always-be-there-f" style="width:100%; height:500px;"></iframe> -->
+  	  	    <script>
+      		  document.addEventListener('DOMContentLoaded', function(){
+        	    var inputIframe = new MagicIframe("iframe-content", "iframe-container");
+        	    var url = "http://www.buzzfeed.com/arianelange/neighbors-penises-seth-rogen-zac-efron";
+        	    var pixels = 2552;
+        	    inputIframe.loadSrc(url, pixels);
+      		  });
+    	    </script>
+		  </div>
         </div>
       </div>
       <div class="col-md-3">
         <div id="messages">
   	      <h3>MESSAGES</h3>
   	      <div class="row" id="message-history">
+  	      	<script type="text/javascript">
+  	      	console.log("IN HERE");
+  	      	  var fb_instance = new Firebase('https://ganstagarden.firebaseIO.com/');
+  	      	  var flower_id = "-JMOxXcqEqVvFX8O0BEJ"
+  	      	  var fb_garden_id = "HELLO";
+  	      	  var fb_garden = fb_instance.child('gardens').child(fb_garden_id);
+              fb_garden.child('flowers/' + flower_id).once('value', function(gardenSnap) {
+                var msgs = gardenSnap.val().msgs;
+                for(var message in msgs) {
+                  var msgSect = document.createElement("p");
+                  var messageToDisplay = msgs[message].user + ": " + msgs[message].msg;
+                  msgSect.textContent = messageToDisplay;
+                  document.getElementById('message-history').appendChild(msgSect);
+                }
+              }); 
+  	      	</script>
   	      </div>
   	      <div class="row" id="message-input">
-  	      	<form class="form-inline" role="form">
+  	      	<!-- <form class="form-inline" role="form"> -->
   	      	  <input type="text" class="form-control" placeholder="Say something..." id="message-input-box"></input>
-  	      	  <button type="button" class="btn btn-success">Post</button>
-  	        </form>
+  	      	  <button type="button" class="btn btn-success" id="post-message">Post</button>
+  	      	  <script type="text/javascript">
+  	      	  	document.getElementById("post-message").onclick = function() {
+  	      	  	  var fb_instance = new Firebase("https://ganstagarden.firebaseio.com"); 
+  	      	  	  var fb_garden_id = "HELLO";
+  	      	  	  var flower_id = "-JMOxXcqEqVvFX8O0BEJ"
+  	      	  	  var cur_user_id = 1;
+    			  var fb_garden = fb_instance.child('gardens').child(fb_garden_id);
+    			  var fb_instance_msgs = fb_garden.child('flowers/').child(flower_id).child('msgs');
+    			  var message_val= document.getElementById("message-input-box").value;
+    			  fb_instance_msgs.push({user:cur_user_id, msg:message_val});
+    			  console.log(message_val);
+      			  var msgSect = document.createElement("p");
+                  var messageToDisplay = cur_user_id + ": " + message_val;
+                  msgSect.textContent = messageToDisplay;
+                  document.getElementById('message-history').appendChild(msgSect);
+    			  document.getElementById("message-input-box").value = "";
+    		    };
+  	      	  </script>
+  	        <!-- </form> -->
   	      </div>
         </div>
       </div>
