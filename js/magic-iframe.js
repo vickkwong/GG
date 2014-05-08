@@ -13,7 +13,6 @@ function MagicIframe(id, containerId, urlInputId, descriptionId) {
 	this.iframe = document.getElementById(id);
 	this.container = document.getElementById(containerId);
 	if(typeof urlInputId !== "undefined") {
-		console.log("HERE 1");
 		this.urlInput = document.getElementById(urlInputId);
 		this.descriptionForm = document.getElementById(descriptionId);
 		// Hide the iframe & description until ready
