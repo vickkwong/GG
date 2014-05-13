@@ -1,14 +1,22 @@
 function Garden(id, name) {
-	this.garden = document.getElementById(id);
+	this.gardenTable = document.getElementById(id);
 	this.name = name;
 }
 
 Garden.prototype.populate = function(fb, gardenId, userId) {
-	var garden = this.garden;
+	var garden = this.gardenTable;
 	garden.innerHTML = '';
 	fb.child('gardens/' + this.name).once('value', function(gardenSnap) {
 	  var flowers = gardenSnap.val().flowers;
+	  var count = 0;
+	  var row;
 	  for(var flowerId in flowers) {
+	  	if (count%4 == 0) {
+	  		row = document.createElement("tr");
+	  	}
+
+	  	var tableData = document.createElement("td");
+
 	  	// Container
 	  	var flowerContainer = document.createElement('div');
 	  	flowerContainer.className = "flower-container";
@@ -23,14 +31,29 @@ Garden.prototype.populate = function(fb, gardenId, userId) {
 
 	  	// Img
 	  	var flowerImg = document.createElement('img');
-	  	flowerImg.src = "img/flower1.png";
+	  	flowerImg.className = "gift-img";
+	  	flowerImg.src = "img/gift.png";
 	  	flowerImg.alt = "flower";
+
+	  	// Des
+	  	var flowerDes = document.createElement("p");
+	  	flowerDes.innerHTML = flowers[flowerId].description;
 
 	  	// Append
 	  	flowerLink.appendChild(flowerImg);
 	  	flowerContainer.appendChild(flowerLink);
-		garden.appendChild(flowerContainer);
+	  	flowerContainer.appendChild(flowerDes);
+
+	  	tableData.appendChild(flowerContainer);
+	  	row.appendChild(tableData);
+
+	  	if (count%4 == 0) {
+	  		garden.appendChild(row);
+	  	}
+	  	count ++;
+		//garden.appendChild(flowerContainer);
 	  }
+
 	});
 }
 
