@@ -51,9 +51,7 @@ Garden.prototype.populate = function(fb, gardenId, userId) {
 	  		garden.appendChild(row);
 	  	}
 	  	count ++;
-		//garden.appendChild(flowerContainer);
 	  }
-
 	});
 }
 

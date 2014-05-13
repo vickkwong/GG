@@ -161,6 +161,15 @@
       var userId = localStorage.userId;
 
       document.addEventListener('DOMContentLoaded', function() {
+        function getNumFlowers() {
+          var count = 0;
+          for (var i=0; i< $("#flower-garden").children().length; i++) {
+            count += $($("#flower-garden").children()[i]).children().length;
+          }
+          return count;
+        }
+
+
         fb.child('gardens/' + gardenName).once('value', function(gardenSnap) {
           var users = gardenSnap.val().users;
           for(var key in users) {
@@ -196,6 +205,17 @@
         document.getElementById("addFriendBtn").addEventListener("click", function(e){
           friendAdder.searchFriend(fb);
         });
+
+        // Refresh
+        var numFlowers = getNumFlowers();
+        setInterval(function(){
+          var newNumFlowers = getNumFlowers();
+          if (newNumFlowers > numFlowers) {
+            alert("There are new gifts!");
+            numFlowers = newNumFlowers;
+          }
+          garden.populate(fb, gardenName, userId);
+        }, 30000);
       });
     </script>
   </body>
