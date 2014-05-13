@@ -10,7 +10,7 @@ function record_audio_and_video(){
 function stop_record_audio_and_video() {
   
 
-  fb_instance = new Firebase("https://ganstagarden.firebaseio.com"); 
+  fb_instance = new Firebase("https://perftest247.firebaseIO.com"); 
                     function getQueryVariable(variable) {
         var query = window.location.search.substring(1);
         var vars = query.split("&");

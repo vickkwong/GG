@@ -15,7 +15,7 @@
         var name = document.getElementById('username').value;
         var password = document.getElementById('pwd').value;
         var test = true;
-        var fb = new Firebase('https://ganstagarden.firebaseIO.com/');
+        var fb = new Firebase('https://perftest247.firebaseIO.com/');
           fb.child('users').once('value', function(usrs)
           {
             var users = usrs.val();
@@ -44,7 +44,7 @@
         var name = document.getElementById('username').value;
         var password = document.getElementById('pwd').value;
         var test = false;
-        var fb = new Firebase('https://ganstagarden.firebaseIO.com/');
+        var fb = new Firebase('https://perftest247.firebaseIO.com/');
           fb.child('users').once('value', function(usrs)
           {
             var users = usrs.val();

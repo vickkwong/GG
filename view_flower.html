@@ -26,7 +26,7 @@
   	      </div>
   	      <div class="row" id="other-responses">
   	      	<script type="text/javascript">
-  			  var fb_instance = new Firebase('https://ganstagarden.firebaseIO.com/');
+  			  var fb_instance = new Firebase('https://perftest247.firebaseIO.com/');
   			  var flower_id = getQueryVariable("flowerId");
   	      	  var fb_garden_id = getQueryVariable("gardenId");
   	      	  var userId = getQueryVariable("userId");
@@ -64,7 +64,7 @@
   	  	  <iframe id="iframe-content" src="" style="width:100%; height:500px;"></iframe>
   	  	    <script>
       		  document.addEventListener('DOMContentLoaded', function(){
-                var fb_instance = new Firebase('https://ganstagarden.firebaseIO.com/');
+                var fb_instance = new Firebase('https://perftest247.firebaseIO.com/');
   			    var flower_id = getQueryVariable("flowerId");
   	      	    var fb_garden_id = getQueryVariable("gardenId");
   	      	    var fb_garden = fb_instance.child('gardens').child(fb_garden_id);
@@ -85,7 +85,7 @@
   	      <h3>MESSAGES</h3>
   	      <div class="row" id="message-history">
   	      	<script type="text/javascript">
-  	      	  var fb_instance = new Firebase('https://ganstagarden.firebaseIO.com/');
+  	      	  var fb_instance = new Firebase('https://perftest247.firebaseIO.com/');
   	      	  var flower_id = getQueryVariable("flowerId");
   	      	  var fb_garden_id = getQueryVariable("gardenId");
   	      	  var fb_garden = fb_instance.child('gardens').child(fb_garden_id);
@@ -106,7 +106,7 @@
   	      	  <button type="button" class="btn btn-success" id="post-message">Post</button>
   	      	  <script type="text/javascript">
   	      	  	document.getElementById("post-message").onclick = function() {
-  	      	  	  var fb_instance = new Firebase("https://ganstagarden.firebaseio.com"); 
+  	      	  	  var fb_instance = new Firebase("https://perftest247.firebaseIO.com"); 
   	      	  	  var fb_garden_id = getQueryVariable("gardenId");
   	      	  	  var flower_id = getQueryVariable("flowerId");
   	      	  	  var cur_user_id = getQueryVariable("userId");
