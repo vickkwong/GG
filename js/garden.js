@@ -23,7 +23,7 @@ Garden.prototype.populate = function(fb, gardenId, userId) {
 
 	  	// Img
 	  	var flowerImg = document.createElement('img');
-	  	flowerImg.src = "img/flower1.png";
+	  	flowerImg.src = "img/gift.png";
 	  	flowerImg.alt = "flower";
 
 	  	// Append
