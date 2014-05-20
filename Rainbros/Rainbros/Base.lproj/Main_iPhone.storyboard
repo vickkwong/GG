@@ -41,6 +41,10 @@
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="login:" destination="gDf-GI-piQ" eventType="touchUpInside" id="NaH-DP-QVK"/>
+                                    <segue destination="vXZ-lx-hvc" kind="custom" identifier="loginSuccessful" id="Y3z-8O-sCR"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y9r-Ag-Yhb">
                                 <rect key="frame" x="132" y="379" width="57" height="22"/>
@@ -54,6 +58,10 @@
                         </subviews>
                         <color key="backgroundColor" red="0.015686274509803921" green="0.50196078431372548" blue="0.56862745098039214" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <connections>
+                        <outlet property="passwordField" destination="GPu-eb-HRu" id="FQI-Vd-z0N"/>
+                        <outlet property="usernameField" destination="Khi-p7-Zma" id="FFK-gm-Nyb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XPe-Ld-sj2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
