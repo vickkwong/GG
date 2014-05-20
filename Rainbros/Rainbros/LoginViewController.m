@@ -7,10 +7,12 @@
 //
 
 #import "LoginViewController.h"
+#import "CreateMessageViewController.h"
 
 @interface LoginViewController ()//<NSURLConnectionDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
+@property (weak, nonatomic) IBOutlet UILabel *errorMessageField;
 @end
 
 @implementation LoginViewController
@@ -54,11 +56,36 @@
     
     NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&e];
     
+    NSLog(@"%d", [jsonDict count]);
+    
     if ([jsonDict count] > 0) {
         [self performSegueWithIdentifier:@"loginSuccessful" sender:self];
+    } else {
+        self.errorMessageField.text = @"Username and/or password incorrect.";
     }
 }
 
+- (IBAction)registerNewUser:(id)sender {
+    [self.usernameField resignFirstResponder];
+    [self.passwordField resignFirstResponder];
+    NSString *registerURL = [[NSString alloc]initWithFormat:@"%@%@%@%@", @"http://www.stanford.edu/~vkwong/cgi-bin/Rainbros/register.php?username=", self.usernameField.text, @"&password=", self.passwordField.text];
+    
+    NSLog(@"%@", registerURL);
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:registerURL]];
+    
+    NSURLResponse *response = (NSURLResponse *)request;
+    
+    NSError *e;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&e];
+    NSString *strResult = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSLog(@"%@", strResult);
+    if ([strResult isEqualToString:@"SUCCESS"]) {
+        [self performSegueWithIdentifier:@"loginSuccessful" sender:self];
+    } else {
+        self.errorMessageField.text = @"Could not create account with that username";
+    }
+}
 
 //# pragma NSURLConnection Methods
 //
@@ -83,6 +110,9 @@
 //}
 
 
+- (IBAction)hideKeyboard:(id)sender {
+    [self.view endEditing:YES];
+}
 
 
 #pragma mark - Navigation
@@ -90,10 +120,18 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-//    CreateMessageViewController *targetVC = (CreateMessageViewController*)segue.destinationViewController;
-//    targetVC.string1 = string1;
+    if ([segue.identifier isEqualToString:@"loginSuccessful"]) {
+        if ([segue.destinationViewController isKindOfClass:[CreateMessageViewController class]]) {
+            CreateMessageViewController *dest = (CreateMessageViewController *)segue.destinationViewController;
+            dest.userName = self.usernameField.text;
+        }
+    }
+}
+
+#pragma mark - TextField
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self.view endEditing:YES];
+    return YES;
 }
 
 

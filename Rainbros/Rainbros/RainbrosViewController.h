@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RainbrosViewController : UIViewController
+@interface RainbrosViewController : UIViewController<UITextFieldDelegate>
 
 @end

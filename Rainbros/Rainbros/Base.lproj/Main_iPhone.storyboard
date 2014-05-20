@@ -23,6 +23,9 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="gDf-GI-piQ" id="tXd-WM-QbS"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GPu-eb-HRu">
                                 <rect key="frame" x="20" y="250" width="280" height="30"/>
@@ -31,8 +34,11 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="gDf-GI-piQ" id="ylR-Jt-IJJ"/>
+                                </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yAQ-qc-0pz">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yAQ-qc-0pz">
                                 <rect key="frame" x="76" y="341" width="168" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -43,7 +49,6 @@
                                 </state>
                                 <connections>
                                     <action selector="login:" destination="gDf-GI-piQ" eventType="touchUpInside" id="NaH-DP-QVK"/>
-                                    <segue destination="vXZ-lx-hvc" kind="custom" identifier="loginSuccessful" id="Y3z-8O-sCR"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y9r-Ag-Yhb">
@@ -54,16 +59,40 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="registerNewUser:" destination="gDf-GI-piQ" eventType="touchUpInside" id="zLw-yU-KTm"/>
+                                </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jFA-7u-nHI">
+                                <rect key="frame" x="20" y="288" width="280" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.015686274509803921" green="0.50196078431372548" blue="0.56862745098039214" alpha="1" colorSpace="calibratedRGB"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="yAQ-qc-0pz" secondAttribute="trailing" constant="76" id="ys6-bh-wrf"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="5Wl-18-pjU" appends="YES" id="8a2-3c-wZ5"/>
+                        </connections>
                     </view>
                     <connections>
+                        <outlet property="errorMessageField" destination="jFA-7u-nHI" id="zIo-3j-XTW"/>
                         <outlet property="passwordField" destination="GPu-eb-HRu" id="FQI-Vd-z0N"/>
                         <outlet property="usernameField" destination="Khi-p7-Zma" id="FFK-gm-Nyb"/>
+                        <segue destination="vXZ-lx-hvc" kind="modal" identifier="loginSuccessful" id="sIs-VI-Rir"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XPe-Ld-sj2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="5Wl-18-pjU">
+                    <connections>
+                        <action selector="hideKeyboard:" destination="gDf-GI-piQ" id="2Ol-Sc-W0v"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-174" y="7"/>
         </scene>
@@ -111,6 +140,7 @@
                             <outletCollection property="gestureRecognizers" destination="s6Z-rH-KZ5" appends="YES" id="uVK-ag-6PZ"/>
                         </connections>
                     </view>
+                    <navigationItem key="navigationItem" id="BNd-pK-Abq"/>
                     <connections>
                         <outlet property="colorPicker" destination="pyH-0C-cLD" id="9aK-xj-GJR"/>
                         <outlet property="messageField" destination="Z8D-Ae-2qy" id="JVL-AE-eLG"/>

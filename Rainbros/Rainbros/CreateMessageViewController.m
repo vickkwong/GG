@@ -56,6 +56,7 @@
     self.view.backgroundColor = colorToSet;
     self.messageField.backgroundColor = colorToSet;
     self.typing = NO;
+    NSLog(@"%@", self.userName);
 }
 
 
