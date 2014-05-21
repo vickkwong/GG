@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Login View Controller-->
+        <!--Login View Controller - Item-->
         <scene sceneID="VIN-rm-zEc">
             <objects>
                 <viewController id="gDf-GI-piQ" customClass="LoginViewController" sceneMemberID="viewController">
@@ -80,11 +80,12 @@
                             <outletCollection property="gestureRecognizers" destination="5Wl-18-pjU" appends="YES" id="8a2-3c-wZ5"/>
                         </connections>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="o75-6x-e2u"/>
                     <connections>
                         <outlet property="errorMessageField" destination="jFA-7u-nHI" id="zIo-3j-XTW"/>
                         <outlet property="passwordField" destination="GPu-eb-HRu" id="FQI-Vd-z0N"/>
                         <outlet property="usernameField" destination="Khi-p7-Zma" id="FFK-gm-Nyb"/>
-                        <segue destination="3Zt-oG-oyq" kind="modal" identifier="loginSuccessful" id="sIs-VI-Rir"/>
+                        <segue destination="SG5-uE-QpL" kind="modal" identifier="loginSuccessful" id="xCd-Vq-ZMa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XPe-Ld-sj2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -94,7 +95,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="260" y="71"/>
+            <point key="canvasLocation" x="1751" y="66"/>
         </scene>
         <!--Create Message View Controller-->
         <scene sceneID="ufC-wZ-h7g">
@@ -145,7 +146,7 @@
                                 </state>
                                 <connections>
                                     <action selector="selectHome:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="4mg-sH-jO7"/>
-                                    <segue destination="TVw-vn-E4K" kind="modal" identifier="viewMessages" id="MXo-xr-kdo"/>
+                                    <segue destination="TVw-vn-E4K" kind="custom" identifier="viewMessages" id="gwt-m8-qTU"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -168,7 +169,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1259" y="739"/>
+            <point key="canvasLocation" x="2715" y="71"/>
         </scene>
         <!--Send Message View Controller - Send To Friends-->
         <scene sceneID="qTW-xo-N4A">
@@ -227,6 +228,7 @@
                                 </state>
                                 <connections>
                                     <action selector="sendMessages:" destination="3ez-sc-l8d" eventType="touchUpInside" id="cF5-S5-cwV"/>
+                                    <segue destination="TVw-vn-E4K" kind="modal" identifier="sentMessage" id="ijn-vX-pSv"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -235,32 +237,13 @@
                     <navigationItem key="navigationItem" title="Send To Friends" id="7sN-RQ-71K"/>
                     <connections>
                         <outlet property="sendButton" destination="tuO-Qp-ziI" id="N75-X0-1Fh"/>
-                        <segue destination="TVw-vn-E4K" kind="modal" identifier="sentMessage" id="O9J-Uc-ore"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RNN-G3-2mc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1259" y="7"/>
+            <point key="canvasLocation" x="3667" y="221"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="Mvr-NB-SMh">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3Zt-oG-oyq" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gQO-Mt-FlC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="rBD-Pw-0FL"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="VhP-yc-rkn" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="699" y="71"/>
-        </scene>
-        <!--View All Messages View Controller-->
+        <!--View All Messages View Controller - Item-->
         <scene sceneID="SqA-7o-Ec2">
             <objects>
                 <viewController id="TVw-vn-E4K" customClass="ViewAllMessagesViewController" sceneMemberID="viewController">
@@ -277,15 +260,15 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Message Cell" textLabel="gE6-sx-Y2Q" style="IBUITableViewCellStyleDefault" id="3He-YZ-QMq">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Message Cell" textLabel="gE6-sx-Y2Q" style="IBUITableViewCellStyleDefault" id="3He-YZ-QMq">
                                         <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3He-YZ-QMq" id="Hs2-dG-is9">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gE6-sx-Y2Q">
-                                                    <rect key="frame" x="15" y="0.0" width="290" height="43"/>
+                                                    <rect key="frame" x="15" y="0.0" width="270" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -293,6 +276,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="eNG-qq-4ff" kind="modal" identifier="viewOneMessage" animates="NO" id="8b8-l2-gai"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -303,10 +289,49 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="KiX-Tw-mgE"/>
+                    <navigationItem key="navigationItem" id="P3T-24-rhg"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="glz-rg-c6o" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1865" y="495"/>
+            <point key="canvasLocation" x="2189" y="745"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="1Ar-0m-ok2">
+            <objects>
+                <viewController id="eNG-qq-4ff" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="l8U-22-Bdc"/>
+                        <viewControllerLayoutGuide type="bottom" id="LLQ-T2-bf7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bcH-rk-bCL">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="WAk-pX-elf"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="huN-nU-Aed" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2591" y="751"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="xWc-Q5-eOt">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="SG5-uE-QpL" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="zXG-F0-t2C">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="BGB-II-oRD"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w5F-uy-Ptc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2189" y="71"/>
         </scene>
     </scenes>
     <resources>
@@ -319,6 +344,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="MXo-xr-kdo"/>
+        <segue reference="gwt-m8-qTU"/>
     </inferredMetricsTieBreakers>
 </document>

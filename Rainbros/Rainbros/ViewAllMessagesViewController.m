@@ -7,6 +7,7 @@
 //
 
 #import "ViewAllMessagesViewController.h"
+#import "ViewMessageViewController.h"
 
 @interface ViewAllMessagesViewController ()
 @property NSArray *messagesArray;
@@ -73,7 +74,7 @@
 }
 
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -81,7 +82,22 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([sender isKindOfClass:[UITableViewCell class]]) {
+        // find out which row in which section we're seguing from
+        UITableView *tableView = (UITableView *)[self.view viewWithTag:1];
+        NSIndexPath *indexPath = [tableView indexPathForCell:sender];
+        if (indexPath) {
+            if ([segue.identifier isEqualToString:@"viewOneMessage"]) {
+                if ([segue.destinationViewController isKindOfClass:[ViewMessageViewController class]]) {
+                    ViewMessageViewController *dest = (ViewMessageViewController *)segue.destinationViewController;
+                    NSDictionary *message = self.messagesArray[indexPath.row];
+                    dest.message = message[@"message"];;
+                    dest.color = message[@"color"];
+                }
+            }
+        }
+    }
 }
-*/
+
 
 @end
