@@ -23,9 +23,10 @@
 		4303EAE019296A03002997F8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4303EADE19296A03002997F8 /* InfoPlist.strings */; };
 		4303EAE219296A03002997F8 /* RainbrosTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4303EAE119296A03002997F8 /* RainbrosTests.m */; };
 		4303EAED19296D76002997F8 /* CreateMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4303EAEC19296D76002997F8 /* CreateMessageViewController.m */; };
-		4303EAF0192B12FC002997F8 /* SelectRecipientsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4303EAEF192B12FC002997F8 /* SelectRecipientsViewController.m */; };
 		4303EAF3192B1404002997F8 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4303EAF2192B1404002997F8 /* LoginViewController.m */; };
 		4303EAF7192B2AF2002997F8 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 4303EAF6192B2AF2002997F8 /* User.m */; };
+		4303EAFA192C2C0B002997F8 /* SendMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4303EAF9192C2C0B002997F8 /* SendMessageViewController.m */; };
+		4303EAFD192C5CB9002997F8 /* ViewAllMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4303EAFC192C5CB9002997F8 /* ViewAllMessagesViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,12 +62,14 @@
 		4303EAE119296A03002997F8 /* RainbrosTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RainbrosTests.m; sourceTree = "<group>"; };
 		4303EAEB19296D76002997F8 /* CreateMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateMessageViewController.h; sourceTree = "<group>"; };
 		4303EAEC19296D76002997F8 /* CreateMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateMessageViewController.m; sourceTree = "<group>"; };
-		4303EAEE192B12FC002997F8 /* SelectRecipientsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectRecipientsViewController.h; sourceTree = "<group>"; };
-		4303EAEF192B12FC002997F8 /* SelectRecipientsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectRecipientsViewController.m; sourceTree = "<group>"; };
 		4303EAF1192B1404002997F8 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		4303EAF2192B1404002997F8 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		4303EAF5192B2AF2002997F8 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		4303EAF6192B2AF2002997F8 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		4303EAF8192C2C0B002997F8 /* SendMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendMessageViewController.h; sourceTree = "<group>"; };
+		4303EAF9192C2C0B002997F8 /* SendMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendMessageViewController.m; sourceTree = "<group>"; };
+		4303EAFB192C5CB9002997F8 /* ViewAllMessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewAllMessagesViewController.h; sourceTree = "<group>"; };
+		4303EAFC192C5CB9002997F8 /* ViewAllMessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewAllMessagesViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,10 +140,12 @@
 				4303EAEC19296D76002997F8 /* CreateMessageViewController.m */,
 				4303EACE19296A03002997F8 /* Images.xcassets */,
 				4303EABA19296A03002997F8 /* Supporting Files */,
-				4303EAEE192B12FC002997F8 /* SelectRecipientsViewController.h */,
-				4303EAEF192B12FC002997F8 /* SelectRecipientsViewController.m */,
 				4303EAF1192B1404002997F8 /* LoginViewController.h */,
 				4303EAF2192B1404002997F8 /* LoginViewController.m */,
+				4303EAF8192C2C0B002997F8 /* SendMessageViewController.h */,
+				4303EAF9192C2C0B002997F8 /* SendMessageViewController.m */,
+				4303EAFB192C5CB9002997F8 /* ViewAllMessagesViewController.h */,
+				4303EAFC192C5CB9002997F8 /* ViewAllMessagesViewController.m */,
 			);
 			path = Rainbros;
 			sourceTree = "<group>";
@@ -286,7 +291,8 @@
 				4303EAF7192B2AF2002997F8 /* User.m in Sources */,
 				4303EAC419296A03002997F8 /* RainbrosAppDelegate.m in Sources */,
 				4303EAF3192B1404002997F8 /* LoginViewController.m in Sources */,
-				4303EAF0192B12FC002997F8 /* SelectRecipientsViewController.m in Sources */,
+				4303EAFA192C2C0B002997F8 /* SendMessageViewController.m in Sources */,
+				4303EAFD192C5CB9002997F8 /* ViewAllMessagesViewController.m in Sources */,
 				4303EACD19296A03002997F8 /* RainbrosViewController.m in Sources */,
 				4303EAC019296A03002997F8 /* main.m in Sources */,
 			);
@@ -503,6 +509,7 @@
 				4303EAE719296A03002997F8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4303EAE819296A03002997F8 /* Build configuration list for PBXNativeTarget "RainbrosTests" */ = {
 			isa = XCConfigurationList;
@@ -511,6 +518,7 @@
 				4303EAEA19296A03002997F8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -121,9 +121,10 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"loginSuccessful"]) {
-        if ([segue.destinationViewController isKindOfClass:[CreateMessageViewController class]]) {
-            CreateMessageViewController *dest = (CreateMessageViewController *)segue.destinationViewController;
+        if ([[segue.destinationViewController topViewController] isKindOfClass:[CreateMessageViewController class]]) {
+            CreateMessageViewController *dest = (CreateMessageViewController *)[segue.destinationViewController topViewController];
             dest.userName = self.usernameField.text;
+//            NSLog(@"LOGIN TO CREATE: %@", dest.userName);
         }
     }
 }

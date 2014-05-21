@@ -7,11 +7,14 @@
 //
 
 #import "CreateMessageViewController.h"
+#import "SendMessageViewController.h"
+#import "ViewAllMessagesViewController.h"
 
 @interface CreateMessageViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *messageField;
 @property (weak, nonatomic) IBOutlet UISlider *colorPicker;
 @property bool typing;
+@property NSString *color;
 @end
 
 @implementation CreateMessageViewController
@@ -41,6 +44,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    self.navigationController.navigationBar.hidden = YES;
     //    CGAffineTransform trans = CGAffineTransformMakeRotation(M_PI_2);
     //    self.colorPicker.transform = trans;
 //    self.messageField.hidden = YES;
@@ -53,16 +57,23 @@
     
     float green = (4/3) * self.colorPicker.value;
     UIColor *colorToSet=[UIColor colorWithRed:(red) green:(green) blue:(blue) alpha:1];
+    [self setColor:red blue:blue green:green];
     self.view.backgroundColor = colorToSet;
     self.messageField.backgroundColor = colorToSet;
     self.typing = NO;
-    NSLog(@"%@", self.userName);
+//    NSLog(@"IN CREATE: %@", self.userName);
 }
 
-
+- (void) setColor:(float) red blue:(float) blue green:(float)green {
+    NSString *redString = [NSString stringWithFormat:@"%02X", (int) round(red * 255)];
+    NSString *blueString = [NSString stringWithFormat:@"%02X", (int) round(blue * 255)];
+    NSString *greenString = [NSString stringWithFormat:@"%02X", (int) round(green * 255)];
+    self.color = [[NSString alloc]initWithFormat:@"%@%@%@", redString, greenString, blueString];
+//    NSLog(@"hexCOlor: %@", self.color);
+}
 
 - (IBAction)pickColor:(id)sender {
-    NSLog(@"%f", self.colorPicker.value);
+//    NSLog(@"%f", self.colorPicker.value);
     
     float red = 0.0;
     float green = 0.0;
@@ -81,6 +92,7 @@
     }
     
     UIColor *colorToSet=[UIColor colorWithRed:(red) green:(green) blue:(blue) alpha:1];
+    [self setColor:red blue:blue green:green];
     self.view.backgroundColor = colorToSet;
     self.messageField.backgroundColor = colorToSet;
 }
@@ -94,12 +106,12 @@
 
 // This method is called once we click inside the textField
 -(void)textViewDidBeginEditing:(UITextView *)textView{
-    NSLog(@"Text field did begin editing");
+//    NSLog(@"Text field did begin editing");
 }
 
 // This method is called once we complete editing
 -(void)textViewDidEndEditing:(UITextView *)textView{
-    NSLog(@"Text field ended editing");
+//    NSLog(@"Text field ended editing");
     [self.messageField sizeToFit];
     [self scrollViewToCenterOfScreen:self.messageField];
 }
@@ -131,7 +143,10 @@
     theView.frame = frame;
 }
 
-/*
+- (IBAction)selectHome:(id)sender {
+    [self performSegueWithIdentifier:@"viewMessages" sender:self];
+}
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -139,7 +154,22 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"readyToSendMessage"]) {
+        if ([segue.destinationViewController isKindOfClass:[SendMessageViewController class]]) {
+            SendMessageViewController *dest = (SendMessageViewController *)segue.destinationViewController;
+            dest.userName = self.userName;
+//            NSLog(@"%@", self.userName);
+            dest.color = self.color;
+            dest.message = self.messageField.text;
+        }
+    }
+    if ([segue.identifier isEqualToString:@"viewMessages"]) {
+        if ([segue.destinationViewController isKindOfClass:[ViewAllMessagesViewController class]]) {
+            ViewAllMessagesViewController *dest = (ViewAllMessagesViewController *)segue.destinationViewController;
+            dest.userName = self.userName;
+        }
+    }
 }
-*/
+
 
 @end
