@@ -114,7 +114,7 @@
 
 - (IBAction)sendMessages:(id)sender {
     NSString *allFriendsString = [self.friendsSelected componentsJoinedByString:@"@@@@@"];
-    NSString *sendMessageURL = [[NSString alloc]initWithFormat:@"%@%@%@%@%@%@%@%@", @"http://www.stanford.edu/~vkwong/cgi-bin/Rainbros/sendMessage.php?sender=", self.userName, @"&recipient=", allFriendsString, @"&message=", self.message, @"&color=", self.color];
+    NSString *sendMessageURL = [[NSString alloc]initWithFormat:@"%@%@%@%@%@%@%@%@", @"http://www.stanford.edu/~vkwong/cgi-bin/Rainbros/sendMessage.php?sender=", self.userName, @"&recipient=", allFriendsString, @"&message=", [self.message stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], @"&color=", self.color];
     
     NSLog(@"%@", sendMessageURL);
     
@@ -128,6 +128,9 @@
     if ([jsonArray count] == [self.friendsSelected count]) {
         self.messagesSent = YES;
         [self performSegueWithIdentifier:@"sentMessage" sender:self];
+//        [self.navigationController popToRootViewControllerAnimated:YES];
+//        [self.navigationController removeFromParentViewController];
+//        [self.navigationController willMoveToParentViewController:self.navigationController];
     }
 }
 

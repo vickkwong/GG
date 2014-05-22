@@ -8,6 +8,7 @@
 
 #import "ViewAllMessagesViewController.h"
 #import "ViewMessageViewController.h"
+#import "CreateMessageViewController.h"
 
 @interface ViewAllMessagesViewController ()
 @property NSArray *messagesArray;
@@ -29,7 +30,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-//    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
     NSString *getMessagesURL = [[NSString alloc]initWithFormat:@"%@%@", @"http://www.stanford.edu/~vkwong/cgi-bin/Rainbros/getMessages.php?username=", self.userName];
     
     NSLog(@"%@", getMessagesURL);
@@ -62,17 +63,80 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.messagesArray count];
+    return 2*[self.messagesArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Message Cell"];
-    NSDictionary *message = self.messagesArray[indexPath.row];
-    cell.textLabel.text = message[@"sender"];
+    if (indexPath.row % 2) {
+        UIView *messageBox = (UIView *)[cell viewWithTag:1];
+        [messageBox.layer setBorderColor:[UIColor whiteColor].CGColor];
+        [messageBox.layer setBorderWidth:5.0f];
+        cell.backgroundColor = [UIColor whiteColor];
+    } else {
+        int row = floor(indexPath.row/2);
+        NSDictionary *message = self.messagesArray[row];
+        UILabel *label = (UILabel *)[cell viewWithTag:2];
+        label.text = [NSString stringWithFormat:@"From %@", message[@"sender"]];
+        UIView *messageBox = (UIView *)[cell viewWithTag:1];
+        [messageBox.layer setBorderColor:[UIColor blackColor].CGColor];
+        [messageBox.layer setBorderWidth:5.0f];
+        cell.backgroundColor = [self getUIColorObjectFromHexString:message[@"color"] alpha:1];
+        UITextView *actualMessage = (UITextView *)[cell viewWithTag:3];
+        actualMessage.text = message[@"message"];
+        [actualMessage setTextColor:[UIColor whiteColor]];
+        [actualMessage setFont:[UIFont systemFontOfSize:35.0]];
+
+    }
     return cell;
 }
+//
+//- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+//    if (indexPath.row % 2 == 0) {
+//        UIColor *altCellColor = [UIColor colorWithWhite:0.7 alpha:0.1];
+//        cell.backgroundColor = altCellColor;
+//    }
+//}
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(indexPath.row % 2) {
+        return 10.0;
+    }
+    // "Else"
+    return 320.0;
+}
+
+- (unsigned int)intFromHexString:(NSString *)hexStr
+{
+    unsigned int hexInt = 0;
+    
+    // Create scanner
+    NSScanner *scanner = [NSScanner scannerWithString:hexStr];
+    
+    // Tell scanner to skip the # character
+    [scanner setCharactersToBeSkipped:[NSCharacterSet characterSetWithCharactersInString:@"#"]];
+    
+    // Scan hex value
+    [scanner scanHexInt:&hexInt];
+    
+    return hexInt;
+}
+
+- (UIColor *)getUIColorObjectFromHexString:(NSString *)hexStr alpha:(CGFloat)alpha
+{
+    // Convert hex string to an integer
+    unsigned int hexint = [self intFromHexString:hexStr];
+    
+    // Create color object, specifying alpha as well
+    UIColor *color =
+    [UIColor colorWithRed:((CGFloat) ((hexint & 0xFF0000) >> 16))/255
+                    green:((CGFloat) ((hexint & 0xFF00) >> 8))/255
+                     blue:((CGFloat) (hexint & 0xFF))/255
+                    alpha:alpha];
+    
+    return color;
+}
 
 
 #pragma mark - Navigation
@@ -82,21 +146,16 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    if ([sender isKindOfClass:[UITableViewCell class]]) {
-        // find out which row in which section we're seguing from
-        UITableView *tableView = (UITableView *)[self.view viewWithTag:1];
-        NSIndexPath *indexPath = [tableView indexPathForCell:sender];
-        if (indexPath) {
-            if ([segue.identifier isEqualToString:@"viewOneMessage"]) {
-                if ([segue.destinationViewController isKindOfClass:[ViewMessageViewController class]]) {
-                    ViewMessageViewController *dest = (ViewMessageViewController *)segue.destinationViewController;
-                    NSDictionary *message = self.messagesArray[indexPath.row];
-                    dest.message = message[@"message"];;
-                    dest.color = message[@"color"];
-                }
-            }
+    if ([segue.identifier isEqualToString:@"createMessage"]) {
+        if ([[segue.destinationViewController topViewController] isKindOfClass:[CreateMessageViewController class]]) {
+            CreateMessageViewController *dest = (CreateMessageViewController *)[segue.destinationViewController topViewController];
+            dest.userName = self.userName;
+            //            NSLog(@"%@", self.userName);
+//            dest.color = self.color;
+//            dest.message = self.messageField.text;
         }
     }
+    
 }
 
 

@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import "CreateMessageViewController.h"
+#import "ViewAllMessagesViewController.h"
 
 @interface LoginViewController ()//<NSURLConnectionDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
@@ -121,8 +122,10 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"loginSuccessful"]) {
-        if ([[segue.destinationViewController topViewController] isKindOfClass:[CreateMessageViewController class]]) {
-            CreateMessageViewController *dest = (CreateMessageViewController *)[segue.destinationViewController topViewController];
+//        if ([[segue.destinationViewController topViewController] isKindOfClass:[CreateMessageViewController class]]) {
+        if ([segue.destinationViewController isKindOfClass:[ViewAllMessagesViewController class]]) {
+//            CreateMessageViewController *dest = (CreateMessageViewController *)[segue.destinationViewController topViewController];
+            ViewAllMessagesViewController *dest = (ViewAllMessagesViewController *)segue.destinationViewController;
             dest.userName = self.usernameField.text;
 //            NSLog(@"LOGIN TO CREATE: %@", dest.userName);
         }
