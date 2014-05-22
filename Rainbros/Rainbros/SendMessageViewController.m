@@ -14,6 +14,7 @@
 @property int numFriendsSelected;
 @property NSMutableArray *friendsSelected;
 @property BOOL messagesSent;
+@property (weak, nonatomic) IBOutlet UIWebView *hiddenWebView;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
 @end
 
@@ -118,20 +119,27 @@
     
     NSLog(@"%@", sendMessageURL);
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:sendMessageURL]];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:sendMessageURL]];
+//    
+//    NSURLResponse *response = (NSURLResponse *)request;
+//    
+//    NSError *e;
+//    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&e];
+//    NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&e];
+//    NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&e];
+//    NSLog(@"%@", jsonDict);
+//    if ([jsonArray count] == [self.friendsSelected count]) {
+//        self.messagesSent = YES;
     
-    NSURLResponse *response = (NSURLResponse *)request;
-    
-    NSError *e;
-    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&e];
-    NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&e];
-    if ([jsonArray count] == [self.friendsSelected count]) {
-        self.messagesSent = YES;
-        [self performSegueWithIdentifier:@"sentMessage" sender:self];
 //        [self.navigationController popToRootViewControllerAnimated:YES];
 //        [self.navigationController removeFromParentViewController];
 //        [self.navigationController willMoveToParentViewController:self.navigationController];
-    }
+//    }
+//    NSString *fullURL = @"http://conecode.com";
+//    NSURL *url = [NSURL URLWithString:fullURL];
+    NSURLRequest *requestObj = [NSURLRequest requestWithURL:[NSURL URLWithString:sendMessageURL]];
+    [self.hiddenWebView loadRequest:requestObj];
+    [self performSegueWithIdentifier:@"sentMessage" sender:self];
 }
 
 
