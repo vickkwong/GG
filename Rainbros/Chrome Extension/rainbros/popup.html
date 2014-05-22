@@ -1,0 +1,159 @@
+<!doctype html>
+<html>
+	<head>
+    <meta charset="utf-8">
+		<meta name="description" content="A basic template for a Chrome Extension using Twitter Bootstrap 3">
+		<meta name="author" content="Elliot Hesp">
+		
+		<title>Rainbros</title>
+
+		<!-- Cascading Style Sheets -->
+		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<link href="css/custom.css" rel="stylesheet" media="screen">
+		<style>
+			body {
+				width: 300px;
+				height: 300px;
+			}
+
+			/* Page Displays */
+			#send-page, #home-page, #friend-page, #empty-inbox-msg {display: none}
+			#landing-page, #home-page, #send-page, #friend-page {
+				width: 100%;
+				height: 100%;
+			}
+
+			/* Login/Signup Page */
+			#logo-img {width:100%;}
+
+			/* Obnoxious Rainbow Logo */
+			.red, .orange, .yellow, .green, .blue, .violet {
+				margin: 0;
+				padding: 0;
+			}
+			.red {color:#FF0B0A}
+			.orange {color:#FF9005}
+			.yellow {color:#FDC938}
+			.green {color:#5EF805}
+			.blue {color:#07C0D9}
+			.violet {color:#69245C}
+
+			/* Carousel */
+			#carousel-example-generic, .item {height: 300px}
+			.item {width:100%}
+
+			/* Send form */
+			#messageInput {
+				background-color: transparent;
+				box-shadow: none;
+				border: 0;
+			}
+
+			/* Transition Icons */
+			#to-inbox, #to-send, #to-friends, #back-to-send {
+				margin:3%;
+				cursor: pointer;
+			}
+			#to-friends, #add-btn {
+				width:100%;
+				font-size: 50px;
+			}
+			#add-btn {
+				font-size:17px;
+				cursor: pointer;
+			}
+		</style>		
+	</head>
+	<body>
+
+		<!-- Log in/Sign up -->
+		<div id="landing-page" class="text-center">
+			<img id="logo-img" src="img/rainbros.png" src="logo">
+			<h4 id="logo-caption" class="text-center">Share 
+				<span class="red">C</span><span class="orange">O</span><span class="yellow">L</span><span class="green">O</span><span class="blue">R</span><span class="violet">S</span>
+			with Your Brothers</h4>
+			<form role="form">
+			  <div class="form-group">
+			    <label class="sr-only" for="usernameInput">Username</label>
+			    <input type="text" class="form-control" id="usernameInput" placeholder="Username">
+			  </div>
+			  <div class="form-group">
+			    <label class="sr-only" for="passwordInput">Password</label>
+			    <input type="password" class="form-control" id="passwordInput" placeholder="Password">
+			  </div>
+			  <p id="login-signup-msg"></p>
+			  <button id="login-btn" class="btn btn-primary btn-lg btn-block">Log In</button>
+			  <button id="signup-btn" class="btn btn-default btn-lg btn-block">Sign Up</button>
+			</form>
+		</div>
+
+		<!-- Inbox -->
+		<div id="home-page">
+			<span id="to-send" class="glyphicon glyphicon-send">  Send</span>
+			<h2 id="empty-inbox-msg">Oh no, your inbox is empty!  Not cool bro :(</h2>
+			<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+			  <ol class="carousel-indicators" id="indicators">
+			  	 <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+			  </ol>
+			  <div id="carousel-body" class="carousel-inner">
+		  	    <div class="item active">
+			      <div class="carousel-caption">
+			        Please Wait...
+			      </div>
+			    </div>
+			  </div>
+			  <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+			    <span class="glyphicon glyphicon-chevron-left"></span>
+			  </a>
+			  <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+			    <span class="glyphicon glyphicon-chevron-right"></span>
+			  </a>
+			</div>
+		</div>
+
+		<!-- Send Page -->
+		<div id="send-page">
+			<span id="to-inbox" class="glyphicon glyphicon-inbox">  Inbox</span>
+			<p id="send-msg"></p>
+			<form role="form">
+				<input type="hidden" class="form-control" id="senderInput" value="">
+				<div class="form-group">
+					<label class="sr-only" for="messageInput">Message</label>
+					<input type="text" class="form-control text-center" id="messageInput" placeholder="Hi friend">
+				</div>
+				<div class="form-group">
+					<label class="sr-only" for="colorInput">Color</label>
+					<input type="text" class="form-control color" id="color-picker" value="FFFFFF">
+				</div>
+			</form>
+			<br>
+			<span id="to-friends" class="glyphicon glyphicon-chevron-right text-center"></span>
+		</div>
+
+		<!-- Friends Page -->
+		<div id="friend-page">
+			<span id="back-to-send" class="glyphicon glyphicon-chevron-left">  Send</span>
+			<p id="friend-msg"></p>
+			<table class="table table-striped">
+				<tbody id="friends-table-body">
+					<tr>
+						<td><span id="add-btn" class="glyphicon glyphicon-plus"></span></td>
+						<td><input id="add-friend-input" type="text" class="form-control"></td>
+					</tr>
+				</tbody>
+			</table>
+			<button id="send-btn" class="btn btn-primary btn-lg btn-block">Send</button>
+		</div>
+
+	</body>
+	<!-- Scripts -->
+	<script src="js/jquery-2.0.3.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="https://cdn.firebase.com/v0/firebase.js"></script>
+	<script src="js/login-signup.js"></script>
+	<script src="js/inbox.js"></script>
+	<script src="js/contacts.js"></script>
+	<script src="js/send.js"></script>
+	<script src="js/popup.js"></script>
+	<script src="js/jscolor.js"></script>
+</html>
