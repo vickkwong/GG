@@ -1,4 +1,15 @@
 document.addEventListener('DOMContentLoaded', function () {
+  
+  function colorChangeCallback(color) {
+    document.getElementById("color-picker").value = color.substring(1);
+    document.getElementById("messageInput").style.color = getTextColor(color.substring(1));
+    document.getElementById("send-page").style.backgroundColor = color;
+    //console.log(color);
+  }
+
+  $('#colorpicker').farbtastic('#color-picker');
+  $.farbtastic("#colorpicker").linkTo(colorChangeCallback);
+
   // Log in Button
   document.getElementById("login-btn").addEventListener("click", function(e){
     e.preventDefault();
@@ -16,10 +27,10 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // Implement the color picker to change the background color of the send page
-  document.getElementById("color-picker").addEventListener("change", function() {
+  /*document.getElementById("color-picker").addEventListener("change", function() {
     document.getElementById("messageInput").style.color = getTextColor(this.value);
     document.getElementById("send-page").style.backgroundColor = '#' + this.value;
-  });
+  });*/
 
   // Send Message Button
   document.getElementById("send-btn").addEventListener("click", function(e){

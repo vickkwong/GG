@@ -10,6 +10,7 @@
 		<!-- Cascading Style Sheets -->
 		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 		<link href="css/custom.css" rel="stylesheet" media="screen">
+		<link rel="stylesheet" href="css/farbtastic.css" type="text/css" />
 		<style>
 			body {
 				width: 300px;
@@ -53,6 +54,14 @@
 				box-shadow: none;
 				border: 0;
 			}
+			#colorpicker {
+				width: 200px;
+				margin-right: auto;
+				margin-left: auto;
+			}
+			#color-picker {
+				display: none;
+			}
 
 			/* Transition Icons */
 			#to-inbox, #to-send, #to-friends, #back-to-send {
@@ -62,6 +71,10 @@
 			#to-friends, #add-btn {
 				width:100%;
 				font-size: 50px;
+			}
+			#to-friends {
+				margin:0;
+				font-size: 20px;
 			}
 			#add-btn {
 				font-size:17px;
@@ -130,9 +143,10 @@
 					<label class="sr-only" for="colorInput">Color</label>
 					<input type="text" class="form-control color" id="color-picker" value="FFFFFF">
 				</div>
+				<div id="colorpicker"></div>
+				<br>
+				<span id="to-friends" class="glyphicon glyphicon-chevron-right text-center"></span>
 			</form>
-			<br>
-			<span id="to-friends" class="glyphicon glyphicon-chevron-right text-center"></span>
 		</div>
 
 		<!-- Friends Page -->
@@ -154,8 +168,9 @@
 	<!-- Scripts -->
 	<script src="js/jquery-2.0.3.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/farbtastic.js"></script>
 	<script type="text/javascript" src="https://cdn.firebase.com/v0/firebase.js"></script>
-	<script src="js/jscolor.js"></script>
+	<!--script src="js/jscolor.js"></script-->
 	<script src="js/colortools.js"></script>
 	<script src="js/login-signup.js"></script>
 	<script src="js/inbox.js"></script>

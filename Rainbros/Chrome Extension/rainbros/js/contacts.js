@@ -150,7 +150,7 @@ function populateContacts(friends) {
 	} else {
 		displayFriendMessage("");
 		var tableBody = document.getElementById("friends-table-body");
-    tableBody.innerHTML = "";
+    //tableBody.innerHTML = "";
 		for (var i=0; i<friends.length; i++) {
 			addFriendshipRow(friends[i]);
 		}
