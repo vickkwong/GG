@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Implement the color picker to change the background color of the send page
   document.getElementById("color-picker").addEventListener("change", function() {
+    document.getElementById("messageInput").style.color = getTextColor(this.value);
     document.getElementById("send-page").style.backgroundColor = '#' + this.value;
   });
 

@@ -58,9 +58,6 @@ function validateMessage(sender, message, color) {
   if (!sender) {
     displaySendMessage("Please log in.");
     return false;
-  } else if (!message) {
-    displaySendMessage("Please include a message.");
-    return false;
   } else if (!color) {
     displaySendMessage("Please include a color.");
     return false;

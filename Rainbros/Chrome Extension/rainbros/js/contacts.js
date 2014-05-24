@@ -27,18 +27,17 @@ function addFriendshipRow(friend) {
 	tableBody.appendChild(row);
 }
 
+function postFriendshipToDB(friend1, friend2) {
+  var request = new XMLHttpRequest();
+  request.open('POST', 'http://stanford.edu/~scottk92/cgi-bin/rainbros/addFriend.php?user=' + friend1 + '&friend=' + friend2, true);
+  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+  request.send({});
+}
+
 // POST a friendship to the database.
 function createFriendship(friend) {
-  var request1 = new XMLHttpRequest();
-  request1.open('POST', 'http://stanford.edu/~scottk92/cgi-bin/rainbros/addFriend.php?user=' + localStorage.username + '&friend=' + friend, true);
-  request1.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-  request1.send({});
-
-  var request2 = new XMLHttpRequest();
-  request2.open('POST', 'http://stanford.edu/~scottk92/cgi-bin/rainbros/addFriend.php?user=' + friend + '&friend=' + localStorage.username, true);
-  request2.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-  request2.send({});
-
+  postFriendshipToDB(localStorage.username, friend);
+  postFriendshipToDB(friend, localStorage.username);
   addFriendshipRow(friend);
   clearAddFriendInput();
 }
@@ -151,6 +150,7 @@ function populateContacts(friends) {
 	} else {
 		displayFriendMessage("");
 		var tableBody = document.getElementById("friends-table-body");
+    tableBody.innerHTML = "";
 		for (var i=0; i<friends.length; i++) {
 			addFriendshipRow(friends[i]);
 		}

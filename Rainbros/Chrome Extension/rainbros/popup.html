@@ -40,7 +40,12 @@
 
 			/* Carousel */
 			#carousel-example-generic, .item {height: 300px}
-			.item {width:100%}
+			.item {
+				width:100%;
+				text-align: center;
+				font-size: 20px;
+				padding-top: 40%;
+			}
 
 			/* Send form */
 			#messageInput {
@@ -92,9 +97,9 @@
 			<span id="to-send" class="glyphicon glyphicon-send">  Send</span>
 			<h2 id="empty-inbox-msg">Oh no, your inbox is empty!  Not cool bro :(</h2>
 			<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-			  <ol class="carousel-indicators" id="indicators">
+			  <!--ol class="carousel-indicators" id="indicators">
 			  	 <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-			  </ol>
+			  </ol-->
 			  <div id="carousel-body" class="carousel-inner">
 		  	    <div class="item active">
 			      <div class="carousel-caption">
@@ -150,10 +155,11 @@
 	<script src="js/jquery-2.0.3.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="https://cdn.firebase.com/v0/firebase.js"></script>
+	<script src="js/jscolor.js"></script>
+	<script src="js/colortools.js"></script>
 	<script src="js/login-signup.js"></script>
 	<script src="js/inbox.js"></script>
 	<script src="js/contacts.js"></script>
 	<script src="js/send.js"></script>
 	<script src="js/popup.js"></script>
-	<script src="js/jscolor.js"></script>
 </html>

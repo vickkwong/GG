@@ -30,18 +30,20 @@ function buildInbox(inbox) {
         indicators += '<li data-target="#carousel-example-generic" data-slide-to="' + i + '"></li>';
       }
       item.style.backgroundColor = '#' + color;
+      item.style.color = getTextColor(color);
 
       // Caption
-      var caption = document.createElement("div");
-      caption.className = "carousel-caption";
-      caption.innerHTML = '"'+ message + '" -' + sender;
+      //var caption = document.createElement("div");
+      //caption.className = "carousel-caption";
+      if (message.length == 0) item.innerHTML = "From " + sender;
+      else item.innerHTML = '"'+ message + '" -' + sender;
 
       // Append
-      item.appendChild(caption);
+      //item.appendChild(caption);
       carouselBody.appendChild(item);
     }
     // Add the indicators
-    carouselIndicators.innerHTML = indicators;
+    //carouselIndicators.innerHTML = indicators;
 
     // Restart the carousel so it moves again
     $("#carousel-example-generic").carousel('pause').removeData();
