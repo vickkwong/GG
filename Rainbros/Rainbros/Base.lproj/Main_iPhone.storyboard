@@ -230,11 +230,20 @@
                                     <action selector="sendMessages:" destination="3ez-sc-l8d" eventType="touchUpInside" id="cF5-S5-cwV"/>
                                 </connections>
                             </button>
+                            <webView opaque="NO" alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eDH-ut-faM">
+                                <rect key="frame" x="0.0" y="220" width="320" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="delegate" destination="3ez-sc-l8d" id="Xzg-Yc-SoQ"/>
+                                </connections>
+                            </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Send To Friends" id="7sN-RQ-71K"/>
                     <connections>
+                        <outlet property="hiddenWebView" destination="eDH-ut-faM" id="C6L-gC-hKa"/>
                         <outlet property="sendButton" destination="tuO-Qp-ziI" id="N75-X0-1Fh"/>
                         <segue destination="TVw-vn-E4K" kind="modal" identifier="sentMessage" id="0G6-LN-lkj"/>
                     </connections>
