@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
     inboxPage.style.display = 'none';
     sendPage.style.display = 'block';
     friendPage.style.display = 'none';
-    document.getElementById("messageInput").placeholder = "Hi friend";
+    document.getElementById("messageInput").placeholder = "What are you feeling?";
     $.farbtastic("#colorpicker").setColor('#'+Math.floor(Math.random()*16777215).toString(16));
   }
 
