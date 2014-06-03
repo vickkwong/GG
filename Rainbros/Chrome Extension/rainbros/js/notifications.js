@@ -14,7 +14,7 @@ function createNotification(data) {
 }
 
 var fb = new Firebase('https://rainbros.firebaseIO.com/');
-fb.on('child_added', function(snapshot) {
+fb.endAt().limit(1).on('child_added', function(snapshot) {
 	if (localStorage.username != undefined && snapshot.val().to == localStorage.username) {
   	createNotification(snapshot.val());
   	id++;

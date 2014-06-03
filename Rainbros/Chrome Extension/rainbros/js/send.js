@@ -6,8 +6,9 @@ var fb = new Firebase('https://rainbros.firebaseIO.com/');
 
 // POST the message to the database.
 function sendColor(sender, recipient, message, color) {
+  console.log("sent color");
   var request = new XMLHttpRequest();
-  request.open('POST', 'http://stanford.edu/~scottk92/cgi-bin/rainbros/postMessages.php?sender=' + sender + '&recipient=' + recipient + '&message=' + message + '&color=' + color, true);
+  request.open('POST', 'http://stanford.edu/~scottk92/cgi-bin/rainbros/postMessages.php?sender=' + encodeURIComponent(sender) + '&recipient=' + encodeURIComponent(recipient) + '&message=' + encodeURIComponent(message) + '&color=' + color, true);
   request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
   request.send({});
   document.getElementById('messageInput').value = "";

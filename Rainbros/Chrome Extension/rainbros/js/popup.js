@@ -7,8 +7,13 @@ document.addEventListener('DOMContentLoaded', function () {
     //console.log(color);
   }
 
+  document.getElementById("messageInput").addEventListener("click", function(){
+    this.placeholder = "";
+  });
+
   $('#colorpicker').farbtastic('#color-picker');
   $.farbtastic("#colorpicker").linkTo(colorChangeCallback);
+  $.farbtastic("#colorpicker").setColor('#'+Math.floor(Math.random()*16777215).toString(16));
 
   // Log in Button
   document.getElementById("login-btn").addEventListener("click", function(e){
@@ -66,6 +71,8 @@ document.addEventListener('DOMContentLoaded', function () {
     inboxPage.style.display = 'none';
     sendPage.style.display = 'block';
     friendPage.style.display = 'none';
+    document.getElementById("messageInput").placeholder = "Hi friend";
+    $.farbtastic("#colorpicker").setColor('#'+Math.floor(Math.random()*16777215).toString(16));
   }
 
   // Transition to the send page
