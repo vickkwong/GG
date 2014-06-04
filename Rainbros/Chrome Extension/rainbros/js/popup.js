@@ -5,8 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var newColor = getTextColor(color.substring(1));
     document.getElementById("messageInput").style.color = newColor;
     document.getElementById("send-msg").style.color = newColor;
-    document.getElementById("to-inbox").style.color = newColor;
-    document.getElementById("to-friends").style.color = newColor;
+    document.getElementById("back-to-friends").style.color = newColor;
     document.getElementById("send-page").style.backgroundColor = color;
   }
 
@@ -40,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var sender = document.getElementById('senderInput').value;
     var message = document.getElementById('messageInput').value;
     var color = document.getElementById('color-picker').value;
-    validateFriends(sender, message, color);
+    validateMessage(sender, message, color);
   });
 
   // Add Friend Button
@@ -64,36 +63,37 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   function toSendPage() {
+    if (validateFriends()) {
+      landingPage.style.display = 'none';
+      inboxPage.style.display = 'none';
+      sendPage.style.display = 'block';
+      friendPage.style.display = 'none';
+      document.getElementById("messageInput").placeholder = "What are you feeling?";
+      $.farbtastic("#colorpicker").setColor('#'+Math.floor(Math.random()*16777215).toString(16));
+      document.getElementById("send-msg").innerHTML = "";
+    }
+  }
+
+  function toFriendsPage() {
     landingPage.style.display = 'none';
     inboxPage.style.display = 'none';
-    sendPage.style.display = 'block';
-    friendPage.style.display = 'none';
-    document.getElementById("messageInput").placeholder = "What are you feeling?";
-    $.farbtastic("#colorpicker").setColor('#'+Math.floor(Math.random()*16777215).toString(16));
-    document.getElementById("send-msg").innerHTML = "";
+    sendPage.style.display = 'none';
+    friendPage.style.display = 'block';
   }
 
   // Transition to the send page
   document.getElementById("to-send").addEventListener("click", function(){
     toSendPage();
   });
+
   // Transition to the send page
-  document.getElementById("back-to-send").addEventListener("click", function(){
-    toSendPage();
+  document.getElementById("back-to-friends").addEventListener("click", function(){
+    toFriendsPage();
   });
 
   // Transition to the friend page
   document.getElementById("to-friends").addEventListener("click", function(){
-    var sender = document.getElementById('senderInput').value;
-    var message = document.getElementById('messageInput').value;
-    var color = document.getElementById('color-picker').value;
-    
-    if (validateMessage(sender, message, color)) {
-      landingPage.style.display = 'none';
-      inboxPage.style.display = 'none';
-      sendPage.style.display = 'none';
-      friendPage.style.display = 'block';
-    }
+    toFriendsPage();
   });
 
   // If the user is already logged in

@@ -23,6 +23,10 @@
 				width: 100%;
 				height: 100%;
 			}
+			.center {
+				width: 100%;
+				text-align: center;
+			}
 			/*#send-page {height:310px}*/
 
 			/* Login/Signup Page */
@@ -68,10 +72,11 @@
 			.no-margin {margin:0;}
 
 			/* Transition Icons */
-			#to-inbox, #to-send, #to-friends, #back-to-send {
+			#to-inbox, #to-send, #to-friends, #back-to-friends {
 				margin:3%;
 				cursor: pointer;
 			}
+			#to-send {font-size:50px;}
 			#to-friends, #add-btn {
 				width:100%;
 				font-size: 50px;
@@ -111,7 +116,7 @@
 
 		<!-- Inbox -->
 		<div id="home-page">
-			<span id="to-send" class="glyphicon glyphicon-send">  Send</span>
+			<span id="to-friends" class="glyphicon glyphicon-send">  Send</span>
 			<h2 id="empty-inbox-msg">Oh no, your inbox is empty!  Not cool bro :(</h2>
 			<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 			  <!--ol class="carousel-indicators" id="indicators">
@@ -133,9 +138,25 @@
 			</div>
 		</div>
 
+		<!-- Friends Page -->
+		<div id="friend-page">
+			<span id="to-inbox" class="glyphicon glyphicon-inbox">  Inbox</span>
+			<p id="friend-msg"></p>
+			<table class="table table-striped no-margin">
+				<tbody id="friends-table-body">
+					<tr>
+						<td><span id="add-btn" class="glyphicon glyphicon-plus"></span></td>
+						<td><input id="add-friend-input" type="text" class="form-control"></td>
+					</tr>
+				</tbody>
+			</table>
+			<span id="to-send" class="glyphicon glyphicon-chevron-right center"></span>
+		</div>
+
+
 		<!-- Send Page -->
 		<div id="send-page">
-			<span id="to-inbox" class="glyphicon glyphicon-inbox">  Inbox</span>
+			<span id="back-to-friends" class="glyphicon glyphicon-chevron-left">  Back to Bros</span>
 			<p id="send-msg" class="text-center"></p>
 			<form role="form">
 				<input type="hidden" class="form-control" id="senderInput" value="">
@@ -150,22 +171,7 @@
 					<input type="text" class="form-control text-center" id="messageInput" placeholder="What are you feeling?" maxlength="50">
 				</div>
 			</form>
-			<span id="to-friends" class="glyphicon glyphicon-chevron-right text-center"></span>
-		</div>
-
-		<!-- Friends Page -->
-		<div id="friend-page">
-			<span id="back-to-send" class="glyphicon glyphicon-chevron-left">  Send</span>
-			<p id="friend-msg"></p>
-			<table class="table table-striped">
-				<tbody id="friends-table-body">
-					<tr>
-						<td><span id="add-btn" class="glyphicon glyphicon-plus"></span></td>
-						<td><input id="add-friend-input" type="text" class="form-control"></td>
-					</tr>
-				</tbody>
-			</table>
-			<button id="send-btn" class="btn btn-primary btn-lg btn-block">Send</button>
+			<button id="send-btn" class="btn btn-default btn-lg btn-block">Send</button>
 		</div>
 
 	</body>

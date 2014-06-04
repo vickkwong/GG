@@ -6,7 +6,6 @@ var fb = new Firebase('https://rainbros.firebaseIO.com/');
 
 // POST the message to the database.
 function sendColor(sender, recipient, message, color) {
-  console.log("sent color");
   var request = new XMLHttpRequest();
   request.open('POST', 'http://stanford.edu/~scottk92/cgi-bin/rainbros/postMessages.php?sender=' + encodeURIComponent(sender) + '&recipient=' + encodeURIComponent(recipient) + '&message=' + encodeURIComponent(message) + '&color=' + color, true);
   request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
@@ -72,20 +71,21 @@ function validateMessage(sender, message, color) {
     displaySendMessage("Messages cannot be more than 2 words.");
     return false;
   }
+  var recipients = getCheckedFriends();
+  for (var i=0; i<recipients.length; i++) {
+    verifyUserExists(sender, recipients[i], message, color);
+  }
+  document.getElementById("to-inbox").click();
+  uncheckFriends();
   return true;
 }
 
 // Validate that friends were selected.
-function validateFriends(sender, message, color) {
+function validateFriends() {
   var recipients = getCheckedFriends();
   if (recipients.length == 0) {
     displayFriendMessage("Select at least one friend to send it to.");
     return false;
-  } else {
-    for (var i=0; i<recipients.length; i++) {
-      verifyUserExists(sender, recipients[i], message, color);
-    }
-    uncheckFriends();
-    document.getElementById("to-inbox").click();
   }
+  return true;
 }
