@@ -14,7 +14,7 @@
 		<style>
 			body {
 				width: 300px;
-				height: 300px;
+				height: 400px;
 			}
 
 			/* Page Displays */
@@ -23,6 +23,7 @@
 				width: 100%;
 				height: 100%;
 			}
+			/*#send-page {height:310px}*/
 
 			/* Login/Signup Page */
 			#logo-img {width:100%;}
@@ -41,7 +42,7 @@
 			.white {color:#FFFFFF}
 
 			/* Carousel */
-			#carousel-example-generic, .item {height: 300px}
+			#carousel-example-generic, .item {height: 400px}
 			.item {
 				width:100%;
 				text-align: center;
@@ -54,6 +55,7 @@
 				background-color: transparent;
 				box-shadow: none;
 				border: 0;
+				font-size: 24px;
 			}
 			#colorpicker {
 				width: 200px;
@@ -63,6 +65,7 @@
 			#color-picker {
 				display: none;
 			}
+			.no-margin {margin:0;}
 
 			/* Transition Icons */
 			#to-inbox, #to-send, #to-friends, #back-to-send {
@@ -133,10 +136,10 @@
 		<!-- Send Page -->
 		<div id="send-page">
 			<span id="to-inbox" class="glyphicon glyphicon-inbox">  Inbox</span>
-			<p id="send-msg"></p>
+			<p id="send-msg" class="text-center"></p>
 			<form role="form">
 				<input type="hidden" class="form-control" id="senderInput" value="">
-				<div class="form-group">
+				<div class="form-group no-margin">
 					<label class="sr-only" for="colorInput">Color</label>
 					<input type="text" class="form-control color" id="color-picker" value="FFFFFF">
 				</div>
@@ -146,8 +149,8 @@
 					<label class="sr-only" for="messageInput">Message</label>
 					<input type="text" class="form-control text-center" id="messageInput" placeholder="What are you feeling?" maxlength="50">
 				</div>
-				<span id="to-friends" class="glyphicon glyphicon-chevron-right text-center"></span>
 			</form>
+			<span id="to-friends" class="glyphicon glyphicon-chevron-right text-center"></span>
 		</div>
 
 		<!-- Friends Page -->

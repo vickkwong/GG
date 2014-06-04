@@ -2,9 +2,12 @@ document.addEventListener('DOMContentLoaded', function () {
   
   function colorChangeCallback(color) {
     document.getElementById("color-picker").value = color.substring(1);
-    document.getElementById("messageInput").style.color = getTextColor(color.substring(1));
+    var newColor = getTextColor(color.substring(1));
+    document.getElementById("messageInput").style.color = newColor;
+    document.getElementById("send-msg").style.color = newColor;
+    document.getElementById("to-inbox").style.color = newColor;
+    document.getElementById("to-friends").style.color = newColor;
     document.getElementById("send-page").style.backgroundColor = color;
-    //console.log(color);
   }
 
   document.getElementById("messageInput").addEventListener("click", function(){
@@ -30,12 +33,6 @@ document.addEventListener('DOMContentLoaded', function () {
     var password = document.getElementById("passwordInput").value;
     verifySignupInfo(username, password);
   });
-
-  // Implement the color picker to change the background color of the send page
-  /*document.getElementById("color-picker").addEventListener("change", function() {
-    document.getElementById("messageInput").style.color = getTextColor(this.value);
-    document.getElementById("send-page").style.backgroundColor = '#' + this.value;
-  });*/
 
   // Send Message Button
   document.getElementById("send-btn").addEventListener("click", function(e){
@@ -73,6 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
     friendPage.style.display = 'none';
     document.getElementById("messageInput").placeholder = "What are you feeling?";
     $.farbtastic("#colorpicker").setColor('#'+Math.floor(Math.random()*16777215).toString(16));
+    document.getElementById("send-msg").innerHTML = "";
   }
 
   // Transition to the send page
